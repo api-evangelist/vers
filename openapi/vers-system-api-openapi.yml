@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: Orchestrator Control Plane commit_tags System API
+  description: ''
+  license:
+    name: ''
+  version: 0.1.0
+tags:
+- name: System
+paths:
+  /api/v1/system/version:
+    get:
+      tags:
+      - System
+      operationId: version_handler
+      responses:
+        '200':
+          description: Version information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrchestratorVersion'
+components:
+  schemas:
+    OrchestratorVersion:
+      type: object
+      description: Response struct for GET api/v1/system/version
+      required:
+      - executable_name
+      - workspace_version
+      - git_hash
+      properties:
+        executable_name:
+          type: string
+          description: Executable identifier; should be "orchestrator"
+        git_hash:
+          type: string
+          description: Current git hash used for the build
+        workspace_version:
+          type: string
+          description: Current workspace version
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token

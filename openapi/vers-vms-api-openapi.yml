@@ -1,0 +1,122 @@
+openapi: 3.1.0
+info:
+  title: Orchestrator Control Plane commit_tags vms API
+  description: ''
+  license:
+    name: ''
+  version: 0.1.0
+tags:
+- name: vms
+paths:
+  /api/v1/vm:
+    get:
+      tags:
+      - vms
+      operationId: list_vms
+      responses:
+        '200':
+          description: List all VMs accessible to the API key
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VM'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+  /api/v1/vms:
+    get:
+      tags:
+      - vms
+      operationId: list_vms
+      responses:
+        '200':
+          description: List all VMs accessible to the API key
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VM'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    VmState:
+      type: string
+      description: The state of a VM
+      enum:
+      - booting
+      - running
+      - paused
+      - sleeping
+      - dead
+    VM:
+      type: object
+      required:
+      - vm_id
+      - owner_id
+      - created_at
+      - state
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        labels:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          propertyNames:
+            type: string
+        owner_id:
+          type: string
+          format: uuid
+        state:
+          $ref: '#/components/schemas/VmState'
+        vm_id:
+          type: string
+          format: uuid
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token

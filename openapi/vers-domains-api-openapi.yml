@@ -1,0 +1,239 @@
+openapi: 3.1.0
+info:
+  title: Orchestrator Control Plane commit_tags domains API
+  description: ''
+  license:
+    name: ''
+  version: 0.1.0
+tags:
+- name: domains
+paths:
+  /api/v1/domains:
+    get:
+      tags:
+      - domains
+      operationId: list_domains
+      parameters:
+      - name: vm_id
+        in: query
+        description: Filter by VM ID
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: List of domains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DomainResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+    post:
+      tags:
+      - domains
+      operationId: create_domain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDomainRequest'
+        required: true
+      responses:
+        '201':
+          description: Domain created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: VM not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Domain already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+  /api/v1/domains/{domain_id}:
+    get:
+      tags:
+      - domains
+      operationId: get_domain
+      parameters:
+      - name: domain_id
+        in: path
+        description: Domain ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Domain details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+    delete:
+      tags:
+      - domains
+      operationId: delete_domain
+      parameters:
+      - name: domain_id
+        in: path
+        description: Domain ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Domain deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDomainResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+components:
+  schemas:
+    DeleteDomainResponse:
+      type: object
+      description: Response body for DELETE /api/v1/domains/{domain_id}
+      required:
+      - domain_id
+      properties:
+        domain_id:
+          type: string
+          format: uuid
+    CreateDomainRequest:
+      type: object
+      description: Request body for POST /api/v1/domains
+      required:
+      - vm_id
+      - domain
+      properties:
+        domain:
+          type: string
+        vm_id:
+          type: string
+          format: uuid
+    DomainResponse:
+      type: object
+      description: Response type for domain operations.
+      required:
+      - domain_id
+      - vm_id
+      - domain
+      - created_at
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        domain:
+          type: string
+        domain_id:
+          type: string
+          format: uuid
+        vm_id:
+          type: string
+          format: uuid
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token

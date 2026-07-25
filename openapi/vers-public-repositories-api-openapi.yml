@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: Orchestrator Control Plane commit_tags public_repositories API
+  description: ''
+  license:
+    name: ''
+  version: 0.1.0
+tags:
+- name: public_repositories
+paths:
+  /api/v1/public/repositories:
+    get:
+      tags:
+      - public_repositories
+      operationId: list_public_repositories
+      responses:
+        '200':
+          description: List of public repositories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPublicRepositoriesResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/public/repositories/{org_name}/{repo_name}:
+    get:
+      tags:
+      - public_repositories
+      operationId: get_public_repository
+      parameters:
+      - name: org_name
+        in: path
+        description: Organization name
+        required: true
+        schema:
+          type: string
+      - name: repo_name
+        in: path
+        description: Repository name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Public repository details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicRepositoryInfo'
+        '404':
+          description: Repository not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/public/repositories/{org_name}/{repo_name}/tags:
+    get:
+      tags:
+      - public_repositories
+      operationId: list_public_repo_tags
+      parameters:
+      - name: org_name
+        in: path
+        description: Organization name
+        required: true
+        schema:
+          type: string
+      - name: repo_name
+        in: path
+        description: Repository name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of tags in public repository
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRepoTagsResponse'
+        '404':
+          description: Repository not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/public/repositories/{org_name}/{repo_name}/tags/{tag_name}:
+    get:
+      tags:
+      - public_repositories
+      operationId: get_public_repo_tag
+      parameters:
+      - name: org_name
+        in: path
+        description: Organization name
+        required: true
+        schema:
+          type: string
+      - name: repo_name
+        in: path
+        description: Repository name
+        required: true
+        schema:
+          type: string
+      - name: tag_name
+        in: path
+        description: Tag name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tag details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepoTagInfo'
+        '404':
+          description: Tag not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    PublicRepositoryInfo:
+      type: object
+      description: Public repository information (includes owner org name for namespacing)
+      required:
+      - repo_id
+      - org_name
+      - name
+      - full_name
+      - created_at
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: When the repository was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description
+        full_name:
+          type: string
+          description: 'Full reference: org_name/repo_name'
+        name:
+          type: string
+          description: The repository name
+        org_name:
+          type: string
+          description: The owning organization's name (namespace)
+        repo_id:
+          type: string
+          format: uuid
+          description: The repository's unique identifier
+    RepoTagInfo:
+      type: object
+      description: Tag information within a repository context
+      required:
+      - tag_id
+      - tag_name
+      - reference
+      - commit_id
+      - created_at
+      - updated_at
+      properties:
+        commit_id:
+          type: string
+          format: uuid
+          description: The commit ID this tag currently points to
+        created_at:
+          type: string
+          format: date-time
+          description: When the tag was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description
+        reference:
+          type: string
+          description: Full reference in image_name:tag format
+        tag_id:
+          type: string
+          format: uuid
+          description: The tag's unique identifier
+        tag_name:
+          type: string
+          description: The tag name
+        updated_at:
+          type: string
+          format: date-time
+          description: When the tag was last updated
+    ListPublicRepositoriesResponse:
+      type: object
+      description: Response body for GET /api/v1/public/repositories
+      required:
+      - repositories
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicRepositoryInfo'
+    ListRepoTagsResponse:
+      type: object
+      description: Response body for GET /api/v1/repositories/{repo_name}/tags
+      required:
+      - repository
+      - tags
+      properties:
+        repository:
+          type: string
+          description: The repository name
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepoTagInfo'
+          description: List of tags in this repository
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token

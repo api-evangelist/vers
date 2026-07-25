@@ -1,0 +1,63 @@
+openapi: 3.1.0
+info:
+  title: Orchestrator Control Plane commit_tags keys API
+  description: ''
+  license:
+    name: ''
+  version: 0.1.0
+tags:
+- name: keys
+paths:
+  /api/v1/keys/validate:
+    post:
+      tags:
+      - keys
+      operationId: validate_key
+      responses:
+        '200':
+          description: API key is valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateKeyResponse'
+        '401':
+          description: API key is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    ValidateKeyResponse:
+      type: object
+      description: Response body for POST /api/keys/validate
+      required:
+      - valid
+      - message
+      properties:
+        message:
+          type: string
+        valid:
+          type: boolean
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token

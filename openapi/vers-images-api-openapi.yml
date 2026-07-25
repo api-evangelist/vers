@@ -1,0 +1,399 @@
+openapi: 3.1.0
+info:
+  title: Orchestrator Control Plane commit_tags images API
+  description: ''
+  license:
+    name: ''
+  version: 0.1.0
+tags:
+- name: images
+paths:
+  /api/v1/images:
+    get:
+      tags:
+      - images
+      operationId: list_images
+      parameters:
+      - name: limit
+        in: path
+        description: 'Maximum number of images to return (default: 50, max: 100)'
+        required: true
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      - name: offset
+        in: path
+        description: 'Number of images to skip (default: 0)'
+        required: true
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      responses:
+        '200':
+          description: List of base images
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBaseImagesResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+  /api/v1/images/create:
+    post:
+      tags:
+      - images
+      operationId: create_image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBaseImageRequest'
+        required: true
+      responses:
+        '201':
+          description: Image creation job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBaseImageResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Image name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+  /api/v1/images/images/{base_image_id}:
+    delete:
+      tags:
+      - images
+      operationId: delete_image
+      parameters:
+      - name: base_image_id
+        in: path
+        description: Base image ID (UUID)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Image deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteBaseImageResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - not owner of image
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Image is in use by VMs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+  /api/v1/images/upload:
+    post:
+      tags:
+      - images
+      operationId: upload_image
+      parameters:
+      - name: image_name
+        in: path
+        description: The name for the new base image
+        required: true
+        schema:
+          type: string
+      - name: size_mib
+        in: path
+        description: 'Size of the image in MiB (default: 512, min: 512, max: 32768)'
+        required: true
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      responses:
+        '201':
+          description: Image upload started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadBaseImageResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Image name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Upload too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+  /api/v1/images/{image_name}/status:
+    get:
+      tags:
+      - images
+      operationId: get_image_status
+      parameters:
+      - name: image_name
+        in: path
+        description: Image name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Image status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseImageStatusResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearer_auth: []
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    UploadBaseImageResponse:
+      type: object
+      required:
+      - job_id
+      - image_name
+      - status
+      properties:
+        image_name:
+          type: string
+        job_id:
+          type: string
+        status:
+          type: string
+    BaseImageInfo:
+      type: object
+      required:
+      - base_image_id
+      - image_name
+      - owner_id
+      - is_public
+      - source_type
+      - size_mib
+      - created_at
+      properties:
+        base_image_id:
+          type: string
+        created_at:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        image_name:
+          type: string
+        is_public:
+          type: boolean
+        owner_id:
+          type: string
+        size_mib:
+          type: integer
+          format: int32
+        source_type:
+          type: string
+    ImageSourceRequest:
+      oneOf:
+      - type: object
+        required:
+        - image_ref
+        - type
+        properties:
+          image_ref:
+            type: string
+          type:
+            type: string
+            enum:
+            - docker
+      - type: object
+        required:
+        - bucket
+        - key
+        - type
+        properties:
+          bucket:
+            type: string
+          key:
+            type: string
+          type:
+            type: string
+            enum:
+            - s3
+    BaseImageStatusResponse:
+      type: object
+      required:
+      - image_name
+      - status
+      - size_mib
+      properties:
+        error_message:
+          type:
+          - string
+          - 'null'
+        image_name:
+          type: string
+        size_mib:
+          type: integer
+          format: int32
+        status:
+          type: string
+    CreateBaseImageRequest:
+      type: object
+      required:
+      - image_name
+      - source
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        image_name:
+          type: string
+        size_mib:
+          type: integer
+          format: int32
+          description: 'Additional capacity in MiB beyond the actual filesystem size (defaults to 256).
+
+            The final image size = calculated rootfs size + this value.
+
+            Set to 0 for minimum possible image size, or higher for more free space.'
+        source:
+          $ref: '#/components/schemas/ImageSourceRequest'
+    CreateBaseImageResponse:
+      type: object
+      required:
+      - job_id
+      - image_name
+      - status
+      properties:
+        image_name:
+          type: string
+        job_id:
+          type: string
+        status:
+          type: string
+    DeleteBaseImageResponse:
+      type: object
+      required:
+      - deleted
+      - base_image_id
+      properties:
+        base_image_id:
+          type: string
+        deleted:
+          type: boolean
+    ListBaseImagesResponse:
+      type: object
+      required:
+      - images
+      - total
+      - limit
+      - offset
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseImageInfo'
+        limit:
+          type: integer
+          format: int64
+        offset:
+          type: integer
+          format: int64
+        total:
+          type: integer
+          format: int64
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token

@@ -1,0 +1,21 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/vers-openapi-original.json
+note: >-
+  Agent Skills generated from the Vers Orchestrator Control Plane API. Every
+  operationId referenced below is verified against the OpenAPI spec. Skills
+  mirror the marquee flows in the Vers docs (agent swarms, snapshot/restore,
+  deploy). Auth is a bearer API key (VERS_API_KEY).
+skills:
+  - file: vers-branch-and-parallel-agents.md
+    name: Branch a VM into parallel agent workers
+    api: openapi/vers-openapi-original.json
+    operations: [create_new_root_vm, exec_vm, commit_vm, branch_by_vm, branch_vm, delete_vm]
+  - file: vers-snapshot-and-restore.md
+    name: Snapshot and restore VM state
+    api: openapi/vers-openapi-original.json
+    operations: [create_new_root_vm, exec_vm, commit_vm, restore_from_commit, list_parent_commits, delete_vm]
+  - file: vers-deploy-github-repo.md
+    name: Deploy a GitHub repo to a fresh VM
+    api: openapi/vers-openapi-original.json
+    operations: [deploy_handler, list_vms, get_vm_metadata, vm_status, create_domain]

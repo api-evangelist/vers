@@ -1,0 +1,76 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.vers.sh/cli-reference/overview
+name: vers
+description: >-
+  The Vers CLI is git-for-running-compute at the command line. Four primitives
+  make the VM tree (run, branch, commit, run-commit); everything else is
+  convenience for scaffolding, connecting, naming, and moving HEAD.
+repository: https://github.com/hdresearch/vers-cli
+install:
+  curl: "curl -sSL https://vers.sh/api/install | bash"
+  binary_path: /usr/local/bin/vers
+  from_source: "git clone https://github.com/hdresearch/vers-cli.git"
+  releases: https://github.com/hdresearch/vers-cli/releases
+  docs: https://docs.vers.sh/installation
+config:
+  file: vers.toml
+  defines: [memory, vCPUs, disk, boot image]
+  docs: https://docs.vers.sh/config
+auth:
+  commands: [login, logout, signup]
+  signup: "git-based by default — email + SSH key, no password"
+  api_key: VERS_API_KEY (from https://vers.sh/billing)
+primitives:
+  - name: run
+    summary: Boot a root VM
+  - name: branch
+    summary: Fork a live VM in 258µs
+  - name: commit
+    summary: Freeze a VM as an immutable, content-addressable snapshot
+  - name: run-commit
+    summary: Restore any snapshot to a fresh VM
+command_groups:
+  project:
+    - {name: init, summary: "Create a project and generate vers.toml"}
+    - {name: run, summary: Boot a VM from configuration}
+    - {name: run-commit, summary: Restore a VM from a committed snapshot}
+    - {name: build, summary: "Build a commit from a literal Dockerfile (cached layers)"}
+    - {name: deploy, summary: "Clone, install, build and run a GitHub repo on a fresh VM"}
+  tree:
+    - {name: branch, summary: Fork a live VM or commit into a new branch}
+    - {name: checkout, summary: Move HEAD to a different VM}
+    - {name: commit, summary: Snapshot a VM as an immutable commit}
+    - {name: tag, summary: Named, mutable pointers to commits}
+    - {name: repo, summary: "Group commits into named, optionally public repositories"}
+    - {name: head, summary: "Print the VM ID HEAD points to (scripting primitive)"}
+    - {name: alias, summary: Name a VM}
+  vm:
+    - {name: connect, summary: Interactive SSH into a VM}
+    - {name: execute, summary: Run a one-off command on a VM}
+    - {name: copy, summary: Transfer files to or from a VM}
+    - {name: info, summary: "Detailed VM metadata — IP, lineage, timestamps, SSH info"}
+    - {name: status, summary: VM status}
+    - {name: pause, summary: Pause a VM}
+    - {name: resume, summary: Resume a paused VM}
+    - {name: kill, summary: "Delete one or more VMs (alias for delete)"}
+    - {name: resize, summary: "Grow a VM's root disk (one-way, larger only)"}
+    - {name: tunnel, summary: "Forward a local port to a VM port (like ssh -L)"}
+  env:
+    - {name: env, summary: "Manage env vars injected into newly-created VMs"}
+  repo_subcommands:
+    - repo create
+    - repo delete
+    - repo fork
+    - repo get
+    - repo list
+    - repo tag create
+    - repo tag delete
+    - repo tag get
+    - repo tag list
+    - repo tag update
+    - repo visibility
+  agent:
+    - {name: mcp serve, summary: "Run the MCP server exposing vers operations as agent tools (stdio/http)"}
+  meta:
+    - {name: upgrade, summary: Upgrade the CLI}

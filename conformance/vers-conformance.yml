@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/vers-openapi-original.json
+note: >-
+  Cross-cutting standards conformance derived from the OpenAPI spec and SDK
+  docs. Vers is a compute-orchestration control plane, not a regulated-domain
+  API, so most industry standards are N/A.
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: "spec is OpenAPI 3.1.0 (openapi/vers-openapi-original.json)"
+  - id: oauth2
+    conforms: false
+    evidence: "auth is a static bearer API key (http bearer, format Token), no OAuth2 flows"
+  - id: oidc
+    conforms: false
+  - id: http-bearer-auth
+    conforms: true
+    evidence: "securityScheme bearer_auth (type http, scheme bearer)"
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: "errors use a custom application/json envelope {error, success}, not application/problem+json"
+  - id: pagination
+    conforms: true
+    evidence: "offset/limit query parameters on list endpoints"
+  - id: idempotency
+    conforms: true
+    evidence: "official SDKs expose per-request idempotency-key override (docs.vers.sh/sdks)"
+  - id: mcp
+    conforms: true
+    evidence: "official MCP server (vers mcp serve) + hosted docs MCP (docs.vers.sh/mcp)"
+  - id: fhir
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: scim
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: json-api
+    conforms: false

@@ -1,8 +1,28 @@
 aid: vers
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/vers.png
 name: Vers
-description: Vers is a company surfaced as a portfolio company of bloomberg-beta, true-ventures and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Vers is "git for running compute" — a branchable microVM platform from HD
+  Research (hdresearch) that lets you fork a live virtual machine (memory,
+  processes, sockets and all) in roughly 258 microseconds, commit its state as
+  an immutable content-addressable snapshot, and restore or branch that snapshot
+  anywhere. Built for AI agent swarms, parallel scenario and database-state
+  testing, CI preview environments, and time-travel debugging, Vers exposes a
+  63-operation Orchestrator Control Plane API (OpenAPI 3.1) behind a bearer API
+  key, plus a git-style CLI, official SDKs for nine languages, and two Model
+  Context Protocol servers so coding agents can drive compute directly.
 url: https://raw.githubusercontent.com/api-evangelist/vers/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,10 +33,139 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Compute
+- Virtualization
+- MicroVM
+- Orchestration
+- Infrastructure
+- AI Agents
+- Developer Tools
+- Sandbox
+- CI/CD
+apis:
+- aid: vers:vers-commit-tags-api
+  name: Vers commit_tags API
+  description: The commit_tags API from Vers — 2 operation(s) for commit_tags.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - commit_tags
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-commit-tags-api-openapi.yml
+- aid: vers:vers-commits-api
+  name: Vers commits API
+  description: The commits API from Vers — 4 operation(s) for commits.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - commits
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-commits-api-openapi.yml
+- aid: vers:vers-deploy-api
+  name: Vers deploy API
+  description: The deploy API from Vers — 1 operation(s) for deploy.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - deploy
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-deploy-api-openapi.yml
+- aid: vers:vers-domains-api
+  name: Vers domains API
+  description: The domains API from Vers — 2 operation(s) for domains.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - domains
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-domains-api-openapi.yml
+- aid: vers:vers-env-vars-api
+  name: Vers env_vars API
+  description: The env_vars API from Vers — 2 operation(s) for env_vars.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - env_vars
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-env-vars-api-openapi.yml
+- aid: vers:vers-images-api
+  name: Vers images API
+  description: The images API from Vers — 5 operation(s) for images.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - images
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-images-api-openapi.yml
+- aid: vers:vers-keys-api
+  name: Vers keys API
+  description: The keys API from Vers — 1 operation(s) for keys.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - keys
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-keys-api-openapi.yml
+- aid: vers:vers-public-repositories-api
+  name: Vers public_repositories API
+  description: The public_repositories API from Vers — 4 operation(s) for public_repositories.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - public_repositories
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-public-repositories-api-openapi.yml
+- aid: vers:vers-repositories-api
+  name: Vers repositories API
+  description: The repositories API from Vers — 6 operation(s) for repositories.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - repositories
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-repositories-api-openapi.yml
+- aid: vers:vers-system-api
+  name: Vers System API
+  description: The System API from Vers — 1 operation(s) for system.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-system-api-openapi.yml
+- aid: vers:vers-vm-api
+  name: Vers vm API
+  description: The vm API from Vers — 20 operation(s) for vm.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - vm
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-vm-api-openapi.yml
+- aid: vers:vers-vms-api
+  name: Vers vms API
+  description: The vms API from Vers — 2 operation(s) for vms.
+  humanURL: https://docs.vers.sh/api-reference/introduction
+  baseURL: https://api.vers.sh
+  tags:
+  - vms
+  properties:
+  - type: OpenAPI
+    url: openapi/vers-vms-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +174,56 @@ maintainers:
 common:
 - type: Website
   url: https://vers.sh/
+- type: DeveloperPortal
+  url: https://docs.vers.sh/
+- type: Documentation
+  url: https://docs.vers.sh/overview
+- type: APIReference
+  url: https://docs.vers.sh/api-reference/introduction
+- type: GettingStarted
+  url: https://docs.vers.sh/quickstart
+- type: GitHubOrganization
+  url: https://github.com/hdresearch
+- type: Support
+  url: https://discord.gg/MFvKgPe3sT
+- type: Blog
+  url: https://vers.sh/blog
+- type: SignUp
+  url: https://vers.sh/auth/signin
+- type: TermsOfService
+  url: https://vers.sh/terms-of-service
+- type: PrivacyPolicy
+  url: https://vers.sh/privacy-policy
+- type: Authentication
+  url: authentication/vers-authentication.yml
+- type: DomainSecurity
+  url: security/vers-domain-security.yml
+- type: Packages
+  url: packages/vers-packages.yml
+- type: SDKs
+  url: packages/vers-packages.yml
+- type: CLI
+  url: cli/vers-cli.yml
+- type: MCPServer
+  url: mcp/vers-mcp.yml
+- type: LLMsTxt
+  url: llms/vers-llms.txt
+- type: Conventions
+  url: conventions/vers-conventions.yml
+- type: Idempotency
+  url: conventions/vers-conventions.yml
+- type: ErrorCatalog
+  url: errors/vers-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/vers-lifecycle.yml
+- type: Conformance
+  url: conformance/vers-conformance.yml
+- type: DataModel
+  url: data-model/vers-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 2
+  pass: local-v1

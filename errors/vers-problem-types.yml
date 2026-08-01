@@ -1,0 +1,57 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/vers-openapi-original.json
+format: custom-json
+envelope:
+  media_type: application/json
+  schema: "#/components/schemas/ErrorResponse"
+  fields:
+    error: "string — reason of error"
+    success: "boolean — always false on error"
+note: >-
+  The Vers API returns errors as a flat JSON object (ErrorResponse), not RFC
+  9457 problem+json. Status codes and descriptions below are derived from the
+  4xx/5xx responses declared across the 63 operations of the Orchestrator
+  Control Plane API.
+problems:
+  - status: 400
+    title: Invalid request
+    description: The request body or parameters failed validation.
+    media_type: application/json
+    schema: ErrorResponse
+  - status: 401
+    title: Unauthorized
+    description: Missing, malformed, or invalid API key (bearer token).
+    media_type: application/json
+    schema: ErrorResponse
+    remediation: Provide a valid VERS_API_KEY; validate via POST /api/v1/keys/validate.
+  - status: 403
+    title: Forbidden
+    description: The authenticated key is not permitted to access the resource.
+    media_type: application/json
+    schema: ErrorResponse
+  - status: 404
+    title: Not found
+    description: The requested VM, commit, repository, tag, domain, or image does not exist.
+    media_type: application/json
+    schema: ErrorResponse
+  - status: 409
+    title: Conflict
+    description: The request conflicts with current resource state (e.g. duplicate name/tag or incompatible VM state).
+    media_type: application/json
+    schema: ErrorResponse
+  - status: 413
+    title: Payload too large
+    description: The uploaded payload (e.g. image or file write) exceeds the allowed size.
+    media_type: application/json
+    schema: ErrorResponse
+  - status: 500
+    title: Internal server error
+    description: An unexpected error occurred in the orchestrator control plane.
+    media_type: application/json
+    schema: ErrorResponse
+  - status: 501
+    title: Not implemented
+    description: The requested operation or capability is not implemented.
+    media_type: application/json
+    schema: ErrorResponse

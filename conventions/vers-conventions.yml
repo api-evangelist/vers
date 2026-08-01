@@ -1,0 +1,63 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.vers.sh/sdks
+spec: openapi/vers-openapi-original.json
+note: >-
+  Cross-cutting request/response semantics for the Vers Orchestrator Control
+  Plane API, captured from the OpenAPI spec and the official SDK feature set.
+authentication:
+  style: bearer-token
+  scheme: "Authorization: Bearer <token>"
+  bearer_format: Token
+  env: VERS_API_KEY
+  key_source: https://vers.sh/billing
+  validate_endpoint: POST /api/v1/keys/validate
+  see: authentication/vers-authentication.yml
+idempotency:
+  supported: true
+  mechanism: per-request idempotency key override
+  scope: mutating operations via the official SDKs
+  evidence: >-
+    All nine official SDKs document a per-request "idempotency key override" as
+    a request option (docs.vers.sh/sdks -> Request options). The idempotency key
+    is not exposed as a parameter in the published OpenAPI, so the exact header
+    name is set by the SDK request layer rather than documented in the spec.
+  source: https://docs.vers.sh/sdks
+pagination:
+  style: offset
+  params:
+    limit: max items to return
+    offset: number of items to skip
+  additional_params: [count, max_entries]
+  applies_to: list endpoints (list_vms, list_commits, list_repositories, ...)
+retries:
+  supported: true
+  strategy: exponential backoff with Retry-After support (SDK request layer)
+  header_honored: Retry-After
+  source: https://docs.vers.sh/sdks
+request_options:
+  per_request: [timeout, headers, idempotency-key override]
+  user_agent: "SDK version + language runtime + OS info"
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /api/v1
+  api_version: 0.1.0
+  version_endpoint: GET /api/v1/system/version
+error_envelope:
+  format: custom-json
+  media_type: application/json
+  shape:
+    error: "string — reason of error"
+    success: "boolean — always false on error"
+  not_rfc9457: true
+  see: errors/vers-problem-types.yml
+rate_limit_signaling:
+  documented: unknown
+  note: >-
+    No rate-limit response headers are declared in the OpenAPI; SDKs honor
+    Retry-After on retryable responses.
+cross_reference:
+  authentication: authentication/vers-authentication.yml
+  errors: errors/vers-problem-types.yml
+  lifecycle: lifecycle/vers-lifecycle.yml

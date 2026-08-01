@@ -1,0 +1,36 @@
+{
+  "provider": "vers",
+  "sources": [
+    "vers-commit-tags-api-openapi.yml",
+    "vers-commits-api-openapi.yml",
+    "vers-deploy-api-openapi.yml",
+    "vers-domains-api-openapi.yml",
+    "vers-env-vars-api-openapi.yml",
+    "vers-images-api-openapi.yml",
+    "vers-keys-api-openapi.yml",
+    "vers-public-repositories-api-openapi.yml",
+    "vers-repositories-api-openapi.yml",
+    "vers-system-api-openapi.yml",
+    "vers-vm-api-openapi.yml",
+    "vers-vms-api-openapi.yml"
+  ],
+  "outputs": [
+    "vers-commit-tags-api-openapi.yml",
+    "vers-commits-api-openapi.yml",
+    "vers-deploy-api-openapi.yml",
+    "vers-domains-api-openapi.yml",
+    "vers-env-vars-api-openapi.yml",
+    "vers-images-api-openapi.yml",
+    "vers-keys-api-openapi.yml",
+    "vers-public-repositories-api-openapi.yml",
+    "vers-repositories-api-openapi.yml",
+    "vers-system-api-openapi.yml",
+    "vers-vm-api-openapi.yml",
+    "vers-vms-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/vers-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /api/v1
+  api_version: 0.1.0
+  version_endpoint: GET /api/v1/system/version
+  docs: https://docs.vers.sh/api-reference/introduction
+  note: >-
+    SDKs are auto-regenerated and published to every registry on each API
+    change (continuous release from the OpenAPI spec).
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: No deprecation policy or Sunset/Deprecation header support was found in the docs or spec.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: No public status page (status.vers.sh / vers.sh/status) was confirmed during this pass.
+deprecated_operations: []

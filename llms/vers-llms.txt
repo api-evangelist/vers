@@ -1,0 +1,160 @@
+# Vers
+
+## Docs
+
+- [Agent Bootstrap](https://docs.vers.sh/agent-bootstrap.md): The one page your AI agent needs to set up Vers from scratch
+- [Custom Golden Images](https://docs.vers.sh/agents/custom-golden-images.md): Build project-specific VM snapshots for instant agent environments
+- [Remote Subagents](https://docs.vers.sh/agents/remote-subagents.md): Spawn and drive coding agents on Vers VMs using the FIFO RPC protocol
+- [Delete apiv1commit tags](https://docs.vers.sh/api-reference/commit_tags/delete-apiv1commit_tags.md)
+- [Get apiv1commit tags](https://docs.vers.sh/api-reference/commit_tags/get-apiv1commit_tags.md)
+- [Get apiv1commit tags 1](https://docs.vers.sh/api-reference/commit_tags/get-apiv1commit_tags-1.md)
+- [Patch apiv1commit tags](https://docs.vers.sh/api-reference/commit_tags/patch-apiv1commit_tags.md)
+- [Post apiv1commit tags](https://docs.vers.sh/api-reference/commit_tags/post-apiv1commit_tags.md)
+- [Delete apiv1commits](https://docs.vers.sh/api-reference/commits/delete-apiv1commits.md)
+- [Get apiv1commits](https://docs.vers.sh/api-reference/commits/get-apiv1commits.md)
+- [Get apiv1commitspublic](https://docs.vers.sh/api-reference/commits/get-apiv1commitspublic.md)
+- [Get apiv1vmcommits parents](https://docs.vers.sh/api-reference/commits/get-apiv1vmcommits-parents.md)
+- [Patch apiv1commits](https://docs.vers.sh/api-reference/commits/patch-apiv1commits.md)
+- [Deploy a GitHub repository to a new Vers project.](https://docs.vers.sh/api-reference/deploy/deploy-a-github-repository-to-a-new-vers-project.md)
+- [Delete apiv1domains](https://docs.vers.sh/api-reference/domains/delete-apiv1domains.md)
+- [Get apiv1domains](https://docs.vers.sh/api-reference/domains/get-apiv1domains.md)
+- [Get apiv1domains 1](https://docs.vers.sh/api-reference/domains/get-apiv1domains-1.md)
+- [Post apiv1domains](https://docs.vers.sh/api-reference/domains/post-apiv1domains.md)
+- [Delete apiv1env vars](https://docs.vers.sh/api-reference/env_vars/delete-apiv1env_vars.md)
+- [Get apiv1env vars](https://docs.vers.sh/api-reference/env_vars/get-apiv1env_vars.md)
+- [Put apiv1env vars](https://docs.vers.sh/api-reference/env_vars/put-apiv1env_vars.md)
+- [Get apiv1systemversion](https://docs.vers.sh/api-reference/get-apiv1systemversion.md)
+- [Delete apiv1imagesimages](https://docs.vers.sh/api-reference/images/delete-apiv1imagesimages.md)
+- [Get apiv1images](https://docs.vers.sh/api-reference/images/get-apiv1images.md)
+- [Get apiv1images status](https://docs.vers.sh/api-reference/images/get-apiv1images-status.md)
+- [Post apiv1imagescreate](https://docs.vers.sh/api-reference/images/post-apiv1imagescreate.md)
+- [Post apiv1imagesupload](https://docs.vers.sh/api-reference/images/post-apiv1imagesupload.md)
+- [API Introduction](https://docs.vers.sh/api-reference/introduction.md): Overview of the Vers API — 63 endpoints for programmatic VM management
+- [Post apiv1keysvalidate](https://docs.vers.sh/api-reference/keys/post-apiv1keysvalidate.md)
+- [Get apiv1publicrepositories](https://docs.vers.sh/api-reference/public_repositories/get-apiv1publicrepositories.md)
+- [Get apiv1publicrepositories ](https://docs.vers.sh/api-reference/public_repositories/get-apiv1publicrepositories-.md)
+- [Get apiv1publicrepositories tags](https://docs.vers.sh/api-reference/public_repositories/get-apiv1publicrepositories-tags.md)
+- [Get apiv1publicrepositories tags 1](https://docs.vers.sh/api-reference/public_repositories/get-apiv1publicrepositories-tags-1.md)
+- [Delete apiv1repositories](https://docs.vers.sh/api-reference/repositories/delete-apiv1repositories.md)
+- [Delete apiv1repositories tags](https://docs.vers.sh/api-reference/repositories/delete-apiv1repositories-tags.md)
+- [Get apiv1repositories](https://docs.vers.sh/api-reference/repositories/get-apiv1repositories.md)
+- [Get apiv1repositories 1](https://docs.vers.sh/api-reference/repositories/get-apiv1repositories-1.md)
+- [Get apiv1repositories tags](https://docs.vers.sh/api-reference/repositories/get-apiv1repositories-tags.md)
+- [Get apiv1repositories tags 1](https://docs.vers.sh/api-reference/repositories/get-apiv1repositories-tags-1.md)
+- [Patch apiv1repositories tags](https://docs.vers.sh/api-reference/repositories/patch-apiv1repositories-tags.md)
+- [Patch apiv1repositories visibility](https://docs.vers.sh/api-reference/repositories/patch-apiv1repositories-visibility.md)
+- [Post apiv1repositories](https://docs.vers.sh/api-reference/repositories/post-apiv1repositories.md)
+- [Post apiv1repositories tags](https://docs.vers.sh/api-reference/repositories/post-apiv1repositories-tags.md)
+- [Post apiv1repositoriesfork](https://docs.vers.sh/api-reference/repositories/post-apiv1repositoriesfork.md)
+- [Delete apiv1vm](https://docs.vers.sh/api-reference/vm/delete-apiv1vm.md)
+- [Get apiv1vm files](https://docs.vers.sh/api-reference/vm/get-apiv1vm-files.md)
+- [Get apiv1vm logs](https://docs.vers.sh/api-reference/vm/get-apiv1vm-logs.md)
+- [Get apiv1vm metadata](https://docs.vers.sh/api-reference/vm/get-apiv1vm-metadata.md)
+- [Get apiv1vm ssh key](https://docs.vers.sh/api-reference/vm/get-apiv1vm-ssh_key.md)
+- [Get apiv1vm status](https://docs.vers.sh/api-reference/vm/get-apiv1vm-status.md)
+- [Patch apiv1vm disk](https://docs.vers.sh/api-reference/vm/patch-apiv1vm-disk.md)
+- [Patch apiv1vm label](https://docs.vers.sh/api-reference/vm/patch-apiv1vm-label.md)
+- [Patch apiv1vm state](https://docs.vers.sh/api-reference/vm/patch-apiv1vm-state.md)
+- [Post apiv1vm branch](https://docs.vers.sh/api-reference/vm/post-apiv1vm-branch.md)
+- [Post apiv1vm commit](https://docs.vers.sh/api-reference/vm/post-apiv1vm-commit.md)
+- [Post apiv1vm exec](https://docs.vers.sh/api-reference/vm/post-apiv1vm-exec.md)
+- [Post apiv1vm execstream](https://docs.vers.sh/api-reference/vm/post-apiv1vm-execstream.md)
+- [Post apiv1vm execstreamattach](https://docs.vers.sh/api-reference/vm/post-apiv1vm-execstreamattach.md)
+- [Post apiv1vmbranchby commit](https://docs.vers.sh/api-reference/vm/post-apiv1vmbranchby_commit.md)
+- [Post apiv1vmbranchby ref ](https://docs.vers.sh/api-reference/vm/post-apiv1vmbranchby_ref-.md)
+- [Post apiv1vmbranchby tag](https://docs.vers.sh/api-reference/vm/post-apiv1vmbranchby_tag.md)
+- [Post apiv1vmbranchby vm](https://docs.vers.sh/api-reference/vm/post-apiv1vmbranchby_vm.md)
+- [Post apiv1vmfrom commit](https://docs.vers.sh/api-reference/vm/post-apiv1vmfrom_commit.md)
+- [Post apiv1vmnew root](https://docs.vers.sh/api-reference/vm/post-apiv1vmnew_root.md)
+- [Put apiv1vm files](https://docs.vers.sh/api-reference/vm/put-apiv1vm-files.md)
+- [Get apiv1vm](https://docs.vers.sh/api-reference/vms/get-apiv1vm.md)
+- [Get apiv1vms](https://docs.vers.sh/api-reference/vms/get-apiv1vms.md)
+- [Architecture](https://docs.vers.sh/architecture.md): How Vers actually works — VM tree, copy-on-write branching, content-addressable commits, and hardware isolation.
+- [Alias](https://docs.vers.sh/cli-reference/alias.md)
+- [Branch](https://docs.vers.sh/cli-reference/branch.md)
+- [vers build](https://docs.vers.sh/cli-reference/build.md): Build a Vers commit from a literal Dockerfile. Each instruction becomes a cached layer.
+- [Checkout](https://docs.vers.sh/cli-reference/checkout.md)
+- [Commit](https://docs.vers.sh/cli-reference/commit.md)
+- [Connect](https://docs.vers.sh/cli-reference/connect.md)
+- [Copy](https://docs.vers.sh/cli-reference/copy.md)
+- [vers deploy](https://docs.vers.sh/cli-reference/deploy.md): Deploy a GitHub repository to a new Vers project — clone, install, build, run.
+- [vers env](https://docs.vers.sh/cli-reference/env.md): Manage environment variables that are injected into newly-created VMs.
+- [Execute](https://docs.vers.sh/cli-reference/execute.md)
+- [vers head](https://docs.vers.sh/cli-reference/head.md): Print the VM ID that HEAD currently points to. The scripting primitive behind most other commands.
+- [vers info](https://docs.vers.sh/cli-reference/info.md): Detailed metadata for a VM — IP, lineage, timestamps, SSH info.
+- [Init](https://docs.vers.sh/cli-reference/init.md)
+- [vers kill](https://docs.vers.sh/cli-reference/kill.md): Delete one or more VMs. `kill` is an alias for `delete`.
+- [Login](https://docs.vers.sh/cli-reference/login.md)
+- [Logout](https://docs.vers.sh/cli-reference/logout.md)
+- [Mcp](https://docs.vers.sh/cli-reference/mcp.md)
+- [CLI overview](https://docs.vers.sh/cli-reference/overview.md): Every Vers command at a glance. Four primitives for the tree, everything else is convenience.
+- [Pause](https://docs.vers.sh/cli-reference/pause.md)
+- [vers repo](https://docs.vers.sh/cli-reference/repo.md): Named repositories that group related commits with their own per-repo tags — a scope above plain tags.
+- [Repo create](https://docs.vers.sh/cli-reference/repo-create.md)
+- [Repo delete](https://docs.vers.sh/cli-reference/repo-delete.md)
+- [Repo fork](https://docs.vers.sh/cli-reference/repo-fork.md)
+- [Repo get](https://docs.vers.sh/cli-reference/repo-get.md)
+- [Repo list](https://docs.vers.sh/cli-reference/repo-list.md)
+- [Repo tag create](https://docs.vers.sh/cli-reference/repo-tag-create.md)
+- [Repo tag delete](https://docs.vers.sh/cli-reference/repo-tag-delete.md)
+- [Repo tag get](https://docs.vers.sh/cli-reference/repo-tag-get.md)
+- [Repo tag list](https://docs.vers.sh/cli-reference/repo-tag-list.md)
+- [Repo tag update](https://docs.vers.sh/cli-reference/repo-tag-update.md)
+- [Repo visibility](https://docs.vers.sh/cli-reference/repo-visibility.md)
+- [vers resize](https://docs.vers.sh/cli-reference/resize.md): Grow a VM's root disk. One-way: new size must be larger than current.
+- [Resume](https://docs.vers.sh/cli-reference/resume.md)
+- [Run](https://docs.vers.sh/cli-reference/run.md)
+- [Run commit](https://docs.vers.sh/cli-reference/run-commit.md)
+- [vers signup](https://docs.vers.sh/cli-reference/signup.md): Create a Vers account. Git-based by default — email + SSH key, no password.
+- [Status](https://docs.vers.sh/cli-reference/status.md)
+- [vers tag](https://docs.vers.sh/cli-reference/tag.md): Named pointers to commits. Move them, list them, delete them — commits are unaffected.
+- [vers tunnel](https://docs.vers.sh/cli-reference/tunnel.md): Forward a local port to a port on a VM. Like ssh -L, through the Vers edge.
+- [Upgrade](https://docs.vers.sh/cli-reference/upgrade.md)
+- [Why Vers?](https://docs.vers.sh/compare.md): Compute has been single-timeline forever. That was an accident of implementation. Vers is what happens when branching a live machine is cheaper than allocating memory.
+- [Commits](https://docs.vers.sh/concepts/commits.md): Immutable, content-addressable snapshots of a VM. The thing you restore, branch from, and tag.
+- [Dockerfile support](https://docs.vers.sh/concepts/dockerfile.md): How `vers build` turns a literal Dockerfile into a Vers commit, with layer caching.
+- [HEAD and aliases](https://docs.vers.sh/concepts/head-and-aliases.md): How commands know which VM you mean when you don't say — and how to name VMs so you never have to.
+- [Concepts](https://docs.vers.sh/concepts/overview.md): The vocabulary you need to read the rest of the docs.
+- [VMs](https://docs.vers.sh/concepts/vms.md): The unit of compute. States, resources, the branching tree, and how they compose.
+- [Configuration](https://docs.vers.sh/config.md): Define VM memory, vCPUs, disk, and boot image with vers.toml.
+- [Content-addressable everything](https://docs.vers.sh/essays/content-addressable-everything.md): Git's quiet revolution was that it made code identity a function of content, not location. Apply the same idea to running machines and three decades of problems dissolve at once.
+- [The cost of rebuilding state](https://docs.vers.sh/essays/cost-of-rebuilding-state.md): Most engineering time is not spent doing work. It is spent re-creating the conditions under which work can be done. Once you see the pattern, you cannot unsee it.
+- [Every infrastructure primitive is secretly a way to avoid paying a cost](https://docs.vers.sh/essays/every-primitive-avoids-a-cost.md): Indexes, caches, CDNs, fork(), git, containers — every durable primitive you can name started as someone's answer to a recurring cost. The frame is useful because it predicts where the next primitives are coming from.
+- [Essays](https://docs.vers.sh/essays/overview.md): Long-form pieces on branchable compute, stateful infrastructure, and why the shape of the work changes when forking a live machine is cheap.
+- [A short history of fork()](https://docs.vers.sh/essays/short-history-of-fork.md): fork() is fifty-five years old. It's the primitive that made Unix generative, the one every serious system still borrows from, and the one whose logical conclusion is to branch whole running machines.
+- [Why stateless compute ran out of runway for agents](https://docs.vers.sh/essays/stateless-compute-ran-out.md): Stateless compute was the right answer for request/response. It is the wrong answer for agents. Context is not a message array — it's everything the worker has built up, and statelessness throws all of it away.
+- [Time-travel debugging, productionized](https://docs.vers.sh/essays/time-travel-debugging.md): Most bugs are hard because by the time you notice them, the state that produced them is gone. Make every commit a restoration point and branches a way to explore alternate pasts, and debugging stops looking like archaeology.
+- [Basic web app](https://docs.vers.sh/examples/basic-web-app.md): Deploy a Python FastAPI app on a Vers VM
+- [CI: maintaining a `latest` image](https://docs.vers.sh/examples/ci-latest-image.md): Keep a pre-baked dev VM in sync with your main branch, so anyone on the team can boot today's code in seconds
+- [Coding agent (SSH)](https://docs.vers.sh/examples/coding-agent-ssh.md): Run Claude Code on a Vers VM via SSH
+- [Forking a supported image](https://docs.vers.sh/examples/fork-supported-image.md): Bootstrap a VM from a Vers-maintained image in seconds
+- [Static web app](https://docs.vers.sh/examples/static-web-app.md): Deploy a static web app to a Vers VM with nginx
+- [Static Web App (GitHub Import)](https://docs.vers.sh/examples/static-web-app-github.md): Deploy a static web app to a Vers VM using GitHub import
+- [Get your API key](https://docs.vers.sh/get-api-key.md): Create an account and mint an API key from the Vers dashboard.
+- [Installation](https://docs.vers.sh/installation.md): Install the Vers CLI on macOS or Linux with a one-line curl. Alternate methods for source builds and manual binaries.
+- [Networking](https://docs.vers.sh/networking.md): How Vers VMs are reachable from the internet, what ports are routable, how TLS works, and the gotchas around dual-stack binds.
+- [What is Vers?](https://docs.vers.sh/overview.md): fork() for machines. Branch a live VM — memory, processes, sockets and all — in 258µs. It's git for running compute.
+- [Quickstart](https://docs.vers.sh/quickstart.md): From install to your first branched VM in under 10 minutes.
+- [Repositories and Tags](https://docs.vers.sh/repositories.md): Organize commits, publish images, and share VM state across accounts
+- [SDKs](https://docs.vers.sh/sdks.md): Official Vers SDKs for 9 languages — auto-generated from the OpenAPI spec by Sterling
+- [Api keys](https://docs.vers.sh/shell-auth/api-keys.md)
+- [Initiate](https://docs.vers.sh/shell-auth/initiate.md)
+- [Overview](https://docs.vers.sh/shell-auth/overview.md)
+- [Verify key](https://docs.vers.sh/shell-auth/verify-key.md)
+- [Verify public key](https://docs.vers.sh/shell-auth/verify-public-key.md)
+- [Agent swarms](https://docs.vers.sh/tutorials/agent-swarms.md): Fork one golden VM into parallel coding agents. Build a full-stack app (server + client + landing) in ~60 seconds by running three agents simultaneously.
+- [Database state testing](https://docs.vers.sh/tutorials/database-state-testing.md): Seed a database once, branch the live state, apply three competing schema migrations in parallel, compare outcomes. No more 'reset the DB and reseed' tax.
+- [Tutorials](https://docs.vers.sh/tutorials/overview.md): Long-form guides that show Vers earning its keep on real workloads.
+- [Parallel scenario testing](https://docs.vers.sh/tutorials/parallel-web-testing.md): Navigate to a stateful point in a real webapp, branch, then run N divergent test paths in parallel against isolated copies of the live state.
+- [Building pi extensions](https://docs.vers.sh/tutorials/pi-extensions.md): Give a coding agent the ability to create Vers VMs and transparently route every bash call to a remote machine. ~80 lines of TypeScript.
+- [Recursive Language Models](https://docs.vers.sh/tutorials/recursive-language-models.md): Build an RLM that writes code to explore data instead of reading it all at once — using ts-rlm and Vers VMs for isolated execution.
+- [VM Access](https://docs.vers.sh/vm-access.md): Connect to, execute on, and transfer files to Vers VMs via SSH.
+
+## OpenAPI Specs
+
+- [openapi](https://docs.vers.sh/api-reference/openapi.json)
+
+## Optional
+
+- [GitHub](https://github.com/hdresearch)
+- [Support](mailto:support@vers.sh)

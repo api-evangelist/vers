@@ -1,0 +1,13 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/vers-openapi-original.json
+summary:
+  types:
+  - http
+schemes:
+- name: bearer_auth
+  type: http
+  scheme: bearer
+  bearerFormat: Token
+  sources:
+  - openapi/vers-openapi-original.json

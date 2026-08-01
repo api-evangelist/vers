@@ -1,0 +1,100 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/vers-openapi-original.json
+note: >-
+  Entity-relationship graph derived from the Orchestrator Control Plane API
+  schemas and path structure. Vers models running compute as a git-like tree:
+  VMs branch from commits/other VMs, commits are immutable content-addressable
+  snapshots with parents, and repositories/tags name commits.
+entities:
+  - name: VM
+    schema: VM
+    id_field: vm_id
+    description: The unit of compute — a live microVM with state, resources, and lineage.
+    states_schema: VmState
+  - name: Commit
+    schema: CommitInfo
+    id_field: commit_id
+    description: Immutable, content-addressable snapshot of a VM; the thing you restore, branch from, and tag.
+  - name: Repository
+    schema: RepositoryInfo
+    id_field: repo_name
+    description: Named group of related commits with per-repo tags and a visibility setting.
+  - name: RepoTag
+    schema: RepoTagInfo
+    id_field: tag_name
+    description: Named, mutable pointer to a commit, scoped within a repository.
+  - name: CommitTag
+    schema: TagInfo
+    id_field: tag_name
+    description: Named, mutable pointer to a commit at the account level.
+  - name: Domain
+    schema: DomainResponse
+    id_field: domain_id
+    description: Custom domain routable to a VM/deployment.
+  - name: EnvVar
+    schema: EnvVarsResponse
+    id_field: key
+    description: Environment variable injected into newly-created VMs.
+  - name: BaseImage
+    schema: BaseImageInfo
+    id_field: base_image_id
+    description: Boot image a root VM is created from (incl. Dockerfile builds).
+relationships:
+  - from: VM
+    to: Commit
+    type: belongs_to
+    via: from_commit / restore_from_commit
+    description: A VM can be restored/created from a commit.
+  - from: VM
+    to: VM
+    type: branches_from
+    via: branch_by_vm
+    description: A VM forks a live parent VM (memory + filesystem inherited).
+  - from: VM
+    to: Commit
+    type: branches_from
+    via: branch_by_commit
+  - from: VM
+    to: RepoTag
+    type: branches_from
+    via: branch_by_ref (repo_name/tag_name)
+  - from: VM
+    to: CommitTag
+    type: branches_from
+    via: branch_by_tag
+  - from: Commit
+    to: Commit
+    type: belongs_to
+    via: list_parent_commits (parents)
+    description: Commits form a lineage tree via parent references.
+  - from: VM
+    to: Commit
+    type: has_many
+    via: commit_vm
+    description: Committing a VM produces immutable commits.
+  - from: Repository
+    to: RepoTag
+    type: has_many
+    via: repo tags
+  - from: RepoTag
+    to: Commit
+    type: points_to
+    via: tag -> commit
+  - from: CommitTag
+    to: Commit
+    type: points_to
+    via: tag -> commit
+  - from: BaseImage
+    to: VM
+    type: has_many
+    via: create_new_root_vm (new_root)
+    description: Root VMs are created from a base image.
+  - from: EnvVar
+    to: VM
+    type: injected_into
+    via: set_env_vars
+  - from: Domain
+    to: VM
+    type: routes_to
+    via: deploy / domains

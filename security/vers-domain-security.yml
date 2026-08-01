@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: vers.sh
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 15 16:26:08 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: docs.vers.sh
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 15 16:19:43 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: api.vers.sh
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 18 21:07:28 2026 GMT
+  hsts: false
+domains:
+- domain: vers.sh
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false

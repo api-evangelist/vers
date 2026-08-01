@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: probed
+source: live probes of vers.sh, api.vers.sh, docs.vers.sh
+note: >-
+  No public /.well-known/ discovery documents are published. The API host
+  (api.vers.sh) returns 401 for every path (entire surface is behind bearer
+  auth); the marketing and docs hosts return 404. No 200 documents were saved.
+hosts:
+  - host: https://api.vers.sh
+    documents:
+      - {path: /.well-known/security.txt, status: 401}
+      - {path: /.well-known/openid-configuration, status: 401}
+      - {path: /.well-known/oauth-authorization-server, status: 401}
+      - {path: /.well-known/api-catalog, status: 401}
+      - {path: /.well-known/ai-plugin.json, status: 401}
+  - host: https://vers.sh
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://docs.vers.sh
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}

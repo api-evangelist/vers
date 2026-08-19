@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags public_repositories API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "public_repositories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_public_repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/public/repositories"
+          }
+        },
+        {
+          "info": {
+            "name": "get_public_repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/public/repositories/:org_name/:repo_name",
+            "params": [
+              {
+                "name": "org_name",
+                "value": "",
+                "type": "path",
+                "description": "Organization name"
+              },
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "list_public_repo_tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/public/repositories/:org_name/:repo_name/tags",
+            "params": [
+              {
+                "name": "org_name",
+                "value": "",
+                "type": "path",
+                "description": "Organization name"
+              },
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "get_public_repo_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/public/repositories/:org_name/:repo_name/tags/:tag_name",
+            "params": [
+              {
+                "name": "org_name",
+                "value": "",
+                "type": "path",
+                "description": "Organization name"
+              },
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

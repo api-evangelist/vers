@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "commit_tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/commit_tags",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "create_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/commit_tags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "get_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/commit_tags/:tag_name",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "update_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/commit_tags/:tag_name",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/commit_tags/:tag_name",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

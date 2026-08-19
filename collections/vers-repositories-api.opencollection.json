@@ -1,0 +1,274 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags repositories API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "repositories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/repositories",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "create_repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/repositories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "fork_repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/repositories/fork",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "get_repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "list_repo_tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name/tags",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "create_repo_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name/tags",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "get_repo_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name/tags/:tag_name",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "update_repo_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name/tags/:tag_name",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_repo_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name/tags/:tag_name",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "set_repository_visibility",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/repositories/:repo_name/visibility",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "Repository name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

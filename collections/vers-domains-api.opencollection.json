@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags domains API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/domains",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by VM ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "create_domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/domains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "get_domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/domains/:domain_id",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "Domain ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/domains/:domain_id",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path",
+                "description": "Domain ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

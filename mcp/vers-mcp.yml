@@ -2,37 +2,39 @@ generated: '2026-07-21'
 method: searched
 status: published
 source: https://docs.vers.sh/cli-reference/mcp
-note: >-
-  Vers ships two official Model Context Protocol surfaces: (1) a platform MCP
-  server bundled in the vers CLI that exposes VM/commit/repo operations as agent
-  tools, and (2) a hosted docs MCP server so agents can search and read the Vers
-  documentation directly.
+note: 'Vers ships two official Model Context Protocol surfaces: (1) a platform MCP server bundled in the
+  vers CLI that exposes VM/commit/repo operations as agent tools, and (2) a hosted docs MCP server so
+  agents can search and read the Vers documentation directly.'
 servers:
-  - name: vers-platform
-    transport: stdio
-    also_supports: [http]
-    command: vers mcp serve
-    http_flags: "--transport http --addr :3920"
-    env:
-      VERS_URL: https://api.vers.sh
-      VERS_API_KEY: required
-      VERS_MCP_HTTP_TOKEN: "required for http transport (bearer token)"
-    description: >-
-      Exposes the vers CLI operations (VM branch/commit/exec, repositories,
-      tags, domains, env vars) as callable MCP tools for AI agents. stdio for
-      subprocess integration (Claude Desktop / Claude Code), http for remote
-      agents.
-    install:
-      claude_code: "claude mcp add --transport stdio vers-platform -- vers mcp serve --transport stdio"
-    source_binary: vers CLI (github.com/hdresearch/vers-cli)
-  - name: vers-docs
-    transport: http
-    url: https://docs.vers.sh/mcp
-    description: >-
-      Hosted MCP server exposing the Vers documentation to tools like Cursor,
-      VS Code, and Claude Code for direct search/read (no scraping).
-    install:
-      claude_code: "claude mcp add --transport http vers-docs https://docs.vers.sh/mcp"
-tools_source: >-
-  The platform server maps vers CLI operations to tools; the underlying API is
-  the 63-operation Orchestrator Control Plane API (openapi/vers-openapi-original.json).
+- name: vers-platform
+  transport: stdio
+  also_supports:
+  - http
+  command: vers mcp serve
+  http_flags: --transport http --addr :3920
+  env:
+    VERS_URL: https://api.vers.sh
+    VERS_API_KEY: required
+    VERS_MCP_HTTP_TOKEN: required for http transport (bearer token)
+  description: Exposes the vers CLI operations (VM branch/commit/exec, repositories, tags, domains, env
+    vars) as callable MCP tools for AI agents. stdio for subprocess integration (Claude Desktop / Claude
+    Code), http for remote agents.
+  install:
+    claude_code: claude mcp add --transport stdio vers-platform -- vers mcp serve --transport stdio
+  source_binary: vers CLI (github.com/hdresearch/vers-cli)
+- name: vers-docs
+  transport: http
+  url: https://docs.vers.sh/mcp
+  description: Hosted MCP server exposing the Vers documentation to tools like Cursor, VS Code, and Claude
+    Code for direct search/read (no scraping).
+  install:
+    claude_code: claude mcp add --transport http vers-docs https://docs.vers.sh/mcp
+tools_source: The platform server maps vers CLI operations to tools; the underlying API is the 63-operation
+  Orchestrator Control Plane API (openapi/vers-openapi-original.json).
+deployment:
+  mode: remote
+  endpoint: https://api.vers.sh
+  verified: probed
+  probe: not-mcp
+  checked: '2026-08-12'
+  source: catalog MCP census

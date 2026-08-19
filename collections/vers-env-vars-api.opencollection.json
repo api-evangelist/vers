@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags env_vars API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "env_vars",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_env_vars",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/env_vars",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "set_env_vars",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/env_vars",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_env_var",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/env_vars/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Environment variable key to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

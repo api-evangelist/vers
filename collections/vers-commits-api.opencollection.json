@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags commits API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "commits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_commits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/commits",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "path",
+                "description": "Maximum number of commits to return (default: 50, max: 100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "path",
+                "description": "Number of commits to skip (default: 0)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "list_public_commits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/commits/public",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "path",
+                "description": "Maximum number of commits to return (default: 50, max: 100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "path",
+                "description": "Number of commits to skip (default: 0)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "update_commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/commits/:commit_id",
+            "params": [
+              {
+                "name": "commit_id",
+                "value": "",
+                "type": "path",
+                "description": "The commit ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/commits/:commit_id",
+            "params": [
+              {
+                "name": "commit_id",
+                "value": "",
+                "type": "path",
+                "description": "Commit ID to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "list_parent_commits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/vm/commits/:commit_id/parents",
+            "params": [
+              {
+                "name": "commit_id",
+                "value": "",
+                "type": "path",
+                "description": "Commit ID to start from"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,618 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags vm API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "vm",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "branch_by_commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/branch/by_commit/:commit_id",
+            "params": [
+              {
+                "name": "commit_id",
+                "value": "",
+                "type": "path",
+                "description": "The commit id to branch off"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of VMs to branch (optional; default 1)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "branch_by_ref",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/branch/by_ref/:repo_name/:tag_name",
+            "params": [
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "The tag name within the repository"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of VMs to branch (optional; default 1)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "branch_by_tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/branch/by_tag/:tag_name",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "The tag name to branch off"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of VMs to branch (optional; default 1)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "branch_by_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/branch/by_vm/:vm_id",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM to commit and then branch off of"
+              },
+              {
+                "name": "keep_paused",
+                "value": "",
+                "type": "query",
+                "description": "If true, keep VM paused after commit"
+              },
+              {
+                "name": "skip_wait_boot",
+                "value": "",
+                "type": "query",
+                "description": "If true, immediately return an error if VM is booting instead of waiting"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of VMs to branch (optional; default 1)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "restore_from_commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/from_commit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "create_new_root_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/new_root",
+            "params": [
+              {
+                "name": "wait_boot",
+                "value": "",
+                "type": "query",
+                "description": "If true, wait for the newly-created VM to finish booting before returning. Default: false."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID to delete"
+              },
+              {
+                "name": "skip_wait_boot",
+                "value": "",
+                "type": "query",
+                "description": "If true, return an error immediately if the VM is still booting. Default: false"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "commit_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/commit",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID to commit"
+              },
+              {
+                "name": "keep_paused",
+                "value": "",
+                "type": "query",
+                "description": "If true, keep VM paused after commit"
+              },
+              {
+                "name": "skip_wait_boot",
+                "value": "",
+                "type": "query",
+                "description": "If true, return an error immediately if the VM is still booting. Default: false"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "resize_vm_disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/disk",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID whose disk to resize"
+              },
+              {
+                "name": "skip_wait_boot",
+                "value": "",
+                "type": "query",
+                "description": "If true, return an error immediately if the VM is still booting. Default: false"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "exec_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/exec",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "exec_vm_stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/exec/stream",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "exec_vm_stream_attach",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/exec/stream/attach",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "read_file_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/files",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Absolute path of the file to read"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "write_file_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/files",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "label_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/label",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "vm_logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/logs",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Byte offset into the log file (default: 0)"
+              },
+              {
+                "name": "max_entries",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries to return"
+              },
+              {
+                "name": "stream",
+                "value": "",
+                "type": "query",
+                "description": "Filter by 'stdout' or 'stderr'"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "get_vm_metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/metadata",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ssh_key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/ssh_key",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "Node ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "update_vm_state",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/state",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              },
+              {
+                "name": "skip_wait_boot",
+                "value": "",
+                "type": "query",
+                "description": "If true, error immediately if the VM is not finished booting. Defaults to false"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "vm_status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_id/status",
+            "params": [
+              {
+                "name": "vm_id",
+                "value": "",
+                "type": "path",
+                "description": "VM ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "branch_vm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/vm/:vm_or_commit_id/branch",
+            "params": [
+              {
+                "name": "vm_or_commit_id",
+                "value": "",
+                "type": "path",
+                "description": "Parent VM or commit ID"
+              },
+              {
+                "name": "keep_paused",
+                "value": "",
+                "type": "query",
+                "description": "If true, keep VM paused after commit. Only applicable when branching a VM ID."
+              },
+              {
+                "name": "skip_wait_boot",
+                "value": "",
+                "type": "query",
+                "description": "If true, immediately return an error if VM is booting instead of waiting. Only applicable when branching a VM ID."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of VMs to branch (optional; default 1)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

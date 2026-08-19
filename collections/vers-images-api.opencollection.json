@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags images API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/images",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "path",
+                "description": "Maximum number of images to return (default: 50, max: 100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "path",
+                "description": "Number of images to skip (default: 0)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "create_image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/images/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "delete_image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/images/images/:base_image_id",
+            "params": [
+              {
+                "name": "base_image_id",
+                "value": "",
+                "type": "path",
+                "description": "Base image ID (UUID)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "upload_image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/images/upload",
+            "params": [
+              {
+                "name": "image_name",
+                "value": "",
+                "type": "path",
+                "description": "The name for the new base image"
+              },
+              {
+                "name": "size_mib",
+                "value": "",
+                "type": "path",
+                "description": "Size of the image in MiB (default: 512, min: 512, max: 32768)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "get_image_status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/images/:image_name/status",
+            "params": [
+              {
+                "name": "image_name",
+                "value": "",
+                "type": "path",
+                "description": "Image name"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orchestrator Control Plane commit_tags deploy API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "deploy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Deploy a GitHub repository to a new Vers project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/deploy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deploy a GitHub repository to a new Vers project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

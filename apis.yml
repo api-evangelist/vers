@@ -51,7 +51,8 @@ apis:
   description: The commit_tags API from Vers — 2 operation(s) for commit_tags.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
-  tags:
+  tags: []
+  tags_raw:
   - commit_tags
   properties:
   - type: OpenAPI
@@ -62,6 +63,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - Commits
+  tags_raw:
   - commits
   properties:
   - type: OpenAPI
@@ -72,6 +75,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - Deploy
+  tags_raw:
   - deploy
   properties:
   - type: OpenAPI
@@ -82,6 +87,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - Domains
+  tags_raw:
   - domains
   properties:
   - type: OpenAPI
@@ -92,6 +99,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - EnvVars
+  tags_raw:
   - env_vars
   properties:
   - type: OpenAPI
@@ -102,6 +111,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - Image
+  tags_raw:
   - images
   properties:
   - type: OpenAPI
@@ -112,6 +123,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - Keys
+  tags_raw:
   - keys
   properties:
   - type: OpenAPI
@@ -121,7 +134,8 @@ apis:
   description: The public_repositories API from Vers — 4 operation(s) for public_repositories.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
-  tags:
+  tags: []
+  tags_raw:
   - public_repositories
   properties:
   - type: OpenAPI
@@ -132,6 +146,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - Repositories
+  tags_raw:
   - repositories
   properties:
   - type: OpenAPI
@@ -162,6 +178,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - VMs
+  tags_raw:
   - vms
   properties:
   - type: OpenAPI

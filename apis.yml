@@ -75,7 +75,7 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
-  - Commits
+  - commits
   tags_raw:
   - commits
   properties:
@@ -87,7 +87,7 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
-  - Deploy
+  - deploy
   tags_raw:
   - deploy
   properties:
@@ -110,8 +110,7 @@ apis:
   description: The env_vars API from Vers — 2 operation(s) for env_vars.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
-  tags:
-  - EnvVars
+  tags: []
   tags_raw:
   - env_vars
   properties:
@@ -158,7 +157,7 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
-  - Repositories
+  - repositories
   tags_raw:
   - repositories
   properties:

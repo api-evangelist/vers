@@ -185,18 +185,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/vers-vm-api-openapi.yml
-- aid: vers:vers-vms-api
-  name: Vers vms API
-  description: The vms API from Vers — 2 operation(s) for vms.
+- aid: vers:vers-v-ms-api
+  name: Vers V Ms API
+  description: The V Ms API from Vers — 2 operation(s) for v ms.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
-  - VMs
-  tags_raw:
-  - vms
+  - V Ms
   properties:
   - type: OpenAPI
-    url: openapi/vers-vms-api-openapi.yml
+    url: openapi/vers-v-ms-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

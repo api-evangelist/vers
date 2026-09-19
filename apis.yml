@@ -191,6 +191,8 @@ apis:
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
   tags:
+  - VMs
+  tags_raw:
   - vms
   properties:
   - type: OpenAPI

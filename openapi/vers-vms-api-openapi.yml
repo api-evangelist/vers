@@ -1,17 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Orchestrator Control Plane commit_tags vms API
+  title: Orchestrator Control Plane Vms API
   description: ''
   license:
     name: ''
   version: 0.1.0
 tags:
-- name: vms
+- name: VMs
 paths:
   /api/v1/vm:
     get:
       tags:
-      - vms
+      - VMs
       operationId: list_vms
       responses:
         '200':
@@ -38,10 +38,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: List vms
+      x-summary-source: derived
   /api/v1/vms:
     get:
       tags:
-      - vms
+      - VMs
       operationId: list_vms
       responses:
         '200':
@@ -68,17 +70,10 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: List vms
+      x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
     VmState:
       type: string
       description: The state of a VM
@@ -88,6 +83,15 @@ components:
       - paused
       - sleeping
       - dead
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
     VM:
       type: object
       required:

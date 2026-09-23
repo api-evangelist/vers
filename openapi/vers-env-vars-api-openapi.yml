@@ -1,17 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Orchestrator Control Plane commit_tags env_vars API
+  title: Orchestrator Control Plane Env Vars API
   description: ''
   license:
     name: ''
   version: 0.1.0
 tags:
-- name: env_vars
+- name: Env Vars
 paths:
   /api/v1/env_vars:
     get:
       tags:
-      - env_vars
+      - Env Vars
       operationId: list_env_vars
       responses:
         '200':
@@ -30,9 +30,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: List env vars
+      x-summary-source: derived
     put:
       tags:
-      - env_vars
+      - Env Vars
       operationId: set_env_vars
       requestBody:
         content:
@@ -63,10 +65,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Set env vars
+      x-summary-source: derived
   /api/v1/env_vars/{key}:
     delete:
       tags:
-      - env_vars
+      - Env Vars
       operationId: delete_env_var
       parameters:
       - name: key
@@ -94,8 +98,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Delete env var
+      x-summary-source: derived
 components:
   schemas:
+    EnvVarsResponse:
+      type: object
+      description: Response body for GET /env_vars and PUT /env_vars.
+      required:
+      - vars
+      properties:
+        vars:
+          type: object
+          description: All environment variables currently set for the authenticated user.
+          additionalProperties:
+            type: string
+          propertyNames:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
     SetEnvVarsRequest:
       type: object
       description: 'Request body for PUT /env_vars — sets (upserts) one or more environment variables.
@@ -143,28 +171,6 @@ components:
             When `replace` is true: all existing variables are deleted first, then
 
             only the provided vars are stored (replace-all semantics).'
-          additionalProperties:
-            type: string
-          propertyNames:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    EnvVarsResponse:
-      type: object
-      description: Response body for GET /env_vars and PUT /env_vars.
-      required:
-      - vars
-      properties:
-        vars:
-          type: object
-          description: All environment variables currently set for the authenticated user.
           additionalProperties:
             type: string
           propertyNames:

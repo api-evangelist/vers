@@ -1,17 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Orchestrator Control Plane commit_tags repositories API
+  title: Orchestrator Control Plane Repositories API
   description: ''
   license:
     name: ''
   version: 0.1.0
 tags:
-- name: repositories
+- name: Repositories
 paths:
   /api/v1/repositories:
     get:
       tags:
-      - repositories
+      - Repositories
       operationId: list_repositories
       responses:
         '200':
@@ -30,9 +30,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: List repositories
+      x-summary-source: derived
     post:
       tags:
-      - repositories
+      - Repositories
       operationId: create_repository
       requestBody:
         content:
@@ -69,10 +71,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Create repository
+      x-summary-source: derived
   /api/v1/repositories/fork:
     post:
       tags:
-      - repositories
+      - Repositories
       operationId: fork_repository
       requestBody:
         content:
@@ -109,10 +113,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Fork repository
+      x-summary-source: derived
   /api/v1/repositories/{repo_name}:
     get:
       tags:
-      - repositories
+      - Repositories
       operationId: get_repository
       parameters:
       - name: repo_name
@@ -144,9 +150,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Get repository
+      x-summary-source: derived
     delete:
       tags:
-      - repositories
+      - Repositories
       operationId: delete_repository
       parameters:
       - name: repo_name
@@ -180,10 +188,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Delete repository
+      x-summary-source: derived
   /api/v1/repositories/{repo_name}/tags:
     get:
       tags:
-      - repositories
+      - Repositories
       operationId: list_repo_tags
       parameters:
       - name: repo_name
@@ -215,9 +225,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: List repo tags
+      x-summary-source: derived
     post:
       tags:
-      - repositories
+      - Repositories
       operationId: create_repo_tag
       parameters:
       - name: repo_name
@@ -273,10 +285,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Create repo tag
+      x-summary-source: derived
   /api/v1/repositories/{repo_name}/tags/{tag_name}:
     get:
       tags:
-      - repositories
+      - Repositories
       operationId: get_repo_tag
       parameters:
       - name: repo_name
@@ -314,9 +328,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Get repo tag
+      x-summary-source: derived
     delete:
       tags:
-      - repositories
+      - Repositories
       operationId: delete_repo_tag
       parameters:
       - name: repo_name
@@ -356,9 +372,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Delete repo tag
+      x-summary-source: derived
     patch:
       tags:
-      - repositories
+      - Repositories
       operationId: update_repo_tag
       parameters:
       - name: repo_name
@@ -410,10 +428,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Update repo tag
+      x-summary-source: derived
   /api/v1/repositories/{repo_name}/visibility:
     patch:
       tags:
-      - repositories
+      - Repositories
       operationId: set_repository_visibility
       parameters:
       - name: repo_name
@@ -453,8 +473,35 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer_auth: []
+      summary: Set repository visibility
+      x-summary-source: derived
 components:
   schemas:
+    ListRepositoriesResponse:
+      type: object
+      description: Response body for GET /api/v1/repositories
+      required:
+      - repositories
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepositoryInfo'
+          description: List of all repositories in the user's organization
+    CreateRepositoryResponse:
+      type: object
+      description: Response body for POST /api/v1/repositories
+      required:
+      - repo_id
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the repository
+        repo_id:
+          type: string
+          format: uuid
+          description: The ID of the newly created repository
     ErrorResponse:
       type: object
       properties:
@@ -464,48 +511,75 @@ components:
         success:
           type: boolean
           description: 'Is always: false'
-    RepositoryInfo:
+    CreateRepoTagResponse:
       type: object
-      description: Repository information returned in list and get operations
+      description: Response body for POST /api/v1/repositories/{repo_name}/tags
       required:
-      - repo_id
-      - name
-      - is_public
-      - created_at
+      - tag_id
+      - reference
+      - commit_id
       properties:
-        created_at:
-          type: string
-          format: date-time
-          description: When the repository was created
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description
-        is_public:
-          type: boolean
-          description: Whether this repository is publicly visible
-        name:
-          type: string
-          description: The repository name
-        repo_id:
+        commit_id:
           type: string
           format: uuid
-          description: The repository's unique identifier
-    CreateRepositoryRequest:
-      type: object
-      description: Request body for POST /api/v1/repositories
-      required:
-      - name
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description of the repository
-        name:
+          description: The commit ID this tag points to
+        reference:
           type: string
-          description: The name of the repository (alphanumeric, hyphens, underscores, dots, 1-64 chars)
+          description: Full reference in image_name:tag format
+        tag_id:
+          type: string
+          format: uuid
+          description: The ID of the newly created tag
+    ListRepoTagsResponse:
+      type: object
+      description: Response body for GET /api/v1/repositories/{repo_name}/tags
+      required:
+      - repository
+      - tags
+      properties:
+        repository:
+          type: string
+          description: The repository name
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepoTagInfo'
+          description: List of tags in this repository
+    SetRepositoryVisibilityRequest:
+      type: object
+      description: Request body for PATCH /api/v1/repositories/{repo_name}/visibility
+      required:
+      - is_public
+      properties:
+        is_public:
+          type: boolean
+          description: Whether the repository should be publicly visible
+    ForkRepositoryResponse:
+      type: object
+      description: Response body for POST /api/v1/repositories/fork
+      required:
+      - vm_id
+      - commit_id
+      - repo_name
+      - tag_name
+      - reference
+      properties:
+        commit_id:
+          type: string
+          format: uuid
+          description: The new commit in your org (snapshot of the forked VM)
+        reference:
+          type: string
+          description: 'Full reference: repo_name:tag_name'
+        repo_name:
+          type: string
+          description: The new repository name in your org
+        tag_name:
+          type: string
+          description: The tag name pointing to the forked commit
+        vm_id:
+          type: string
+          description: The new VM that was created from the fork
     UpdateRepoTagRequest:
       type: object
       description: Request body for PATCH /api/v1/repositories/{repo_name}/tags/{tag_name}
@@ -559,6 +633,48 @@ components:
           type: string
           format: date-time
           description: When the tag was last updated
+    RepositoryInfo:
+      type: object
+      description: Repository information returned in list and get operations
+      required:
+      - repo_id
+      - name
+      - is_public
+      - created_at
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: When the repository was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description
+        is_public:
+          type: boolean
+          description: Whether this repository is publicly visible
+        name:
+          type: string
+          description: The repository name
+        repo_id:
+          type: string
+          format: uuid
+          description: The repository's unique identifier
+    CreateRepositoryRequest:
+      type: object
+      description: Request body for POST /api/v1/repositories
+      required:
+      - name
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description of the repository
+        name:
+          type: string
+          description: The name of the repository (alphanumeric, hyphens, underscores, dots, 1-64 chars)
     CreateRepoTagRequest:
       type: object
       description: 'Request body for creating a tag within a repository: POST /api/v1/repositories/{repo_name}/tags'
@@ -578,45 +694,6 @@ components:
         tag_name:
           type: string
           description: The tag name (e.g. "latest", "v1.0")
-    CreateRepoTagResponse:
-      type: object
-      description: Response body for POST /api/v1/repositories/{repo_name}/tags
-      required:
-      - tag_id
-      - reference
-      - commit_id
-      properties:
-        commit_id:
-          type: string
-          format: uuid
-          description: The commit ID this tag points to
-        reference:
-          type: string
-          description: Full reference in image_name:tag format
-        tag_id:
-          type: string
-          format: uuid
-          description: The ID of the newly created tag
-    ListRepositoriesResponse:
-      type: object
-      description: Response body for GET /api/v1/repositories
-      required:
-      - repositories
-      properties:
-        repositories:
-          type: array
-          items:
-            $ref: '#/components/schemas/RepositoryInfo'
-          description: List of all repositories in the user's organization
-    SetRepositoryVisibilityRequest:
-      type: object
-      description: Request body for PATCH /api/v1/repositories/{repo_name}/visibility
-      required:
-      - is_public
-      properties:
-        is_public:
-          type: boolean
-          description: Whether the repository should be publicly visible
     ForkRepositoryRequest:
       type: object
       description: Request body for POST /api/v1/repositories/fork
@@ -644,61 +721,6 @@ components:
           - string
           - 'null'
           description: Tag name in the new repo (defaults to source_tag if omitted)
-    ListRepoTagsResponse:
-      type: object
-      description: Response body for GET /api/v1/repositories/{repo_name}/tags
-      required:
-      - repository
-      - tags
-      properties:
-        repository:
-          type: string
-          description: The repository name
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/RepoTagInfo'
-          description: List of tags in this repository
-    CreateRepositoryResponse:
-      type: object
-      description: Response body for POST /api/v1/repositories
-      required:
-      - repo_id
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the repository
-        repo_id:
-          type: string
-          format: uuid
-          description: The ID of the newly created repository
-    ForkRepositoryResponse:
-      type: object
-      description: Response body for POST /api/v1/repositories/fork
-      required:
-      - vm_id
-      - commit_id
-      - repo_name
-      - tag_name
-      - reference
-      properties:
-        commit_id:
-          type: string
-          format: uuid
-          description: The new commit in your org (snapshot of the forked VM)
-        reference:
-          type: string
-          description: 'Full reference: repo_name:tag_name'
-        repo_name:
-          type: string
-          description: The new repository name in your org
-        tag_name:
-          type: string
-          description: The tag name pointing to the forked commit
-        vm_id:
-          type: string
-          description: The new VM that was created from the fork
   securitySchemes:
     bearer_auth:
       type: http

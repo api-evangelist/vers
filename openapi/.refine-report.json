@@ -1,20 +1,10 @@
 {
   "provider": "vers",
   "sources": [
-    "vers-commit-tags-api-openapi.yml",
-    "vers-commits-api-openapi.yml",
-    "vers-deploy-api-openapi.yml",
-    "vers-domains-api-openapi.yml",
-    "vers-env-vars-api-openapi.yml",
-    "vers-images-api-openapi.yml",
-    "vers-keys-api-openapi.yml",
-    "vers-public-repositories-api-openapi.yml",
-    "vers-repositories-api-openapi.yml",
-    "vers-system-api-openapi.yml",
-    "vers-vm-api-openapi.yml",
-    "vers-vms-api-openapi.yml"
+    "_original/vers-openapi-original.json"
   ],
   "outputs": [
+    "vers-system-api-openapi.yml",
     "vers-commit-tags-api-openapi.yml",
     "vers-commits-api-openapi.yml",
     "vers-deploy-api-openapi.yml",
@@ -24,13 +14,45 @@
     "vers-keys-api-openapi.yml",
     "vers-public-repositories-api-openapi.yml",
     "vers-repositories-api-openapi.yml",
-    "vers-system-api-openapi.yml",
     "vers-vm-api-openapi.yml",
     "vers-vms-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "vers-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "vers-openapi-original.json: tagged paths GET /api/v1/system/version -> System",
+    "vers-openapi-original.json: declared missing tag: System",
+    "vers-openapi-original.json: declared missing tag: commit_tags",
+    "vers-openapi-original.json: declared missing tag: commits",
+    "vers-openapi-original.json: declared missing tag: deploy",
+    "vers-openapi-original.json: declared missing tag: domains",
+    "vers-openapi-original.json: declared missing tag: env_vars",
+    "vers-openapi-original.json: declared missing tag: images",
+    "vers-openapi-original.json: declared missing tag: keys",
+    "vers-openapi-original.json: declared missing tag: public_repositories",
+    "vers-openapi-original.json: declared missing tag: repositories",
+    "vers-openapi-original.json: declared missing tag: vm",
+    "vers-openapi-original.json: declared missing tag: vms",
+    "superseded outputs removed: vers-v-ms-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 12 total)"
+  ],
+  "skipped": [
+    "vers-commit-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-commits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-deploy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-domains-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-env-vars-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-public-repositories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-repositories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-system-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-v-ms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vers-vm-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

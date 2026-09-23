@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Orchestrator Control Plane commit_tags System API
+  title: Orchestrator Control Plane System API
   description: ''
   license:
     name: ''
@@ -20,6 +20,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrchestratorVersion'
+      summary: Version handler
+      x-summary-source: derived
 components:
   schemas:
     OrchestratorVersion:

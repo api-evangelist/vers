@@ -218,17 +218,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ListTagsResponse:
+    UpdateTagRequest:
       type: object
-      description: Response body for GET /api/v1/commit_tags
-      required:
-      - tags
+      description: 'Request body for PATCH /api/v1/commit_tags/{tag_name}
+
+
+        For `description`:
+
+        - Field absent from JSON → don''t change the description
+
+        - Field present as `null` → clear the description
+
+        - Field present as `"text"` → set the description to "text"'
       properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagInfo'
-          description: List of all tags in the user's organization
+        commit_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Optional new commit ID to move the tag to
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional new description for the tag. Send `null` to clear an existing description.
     TagInfo:
       type: object
       description: Tag information returned in list and get operations
@@ -263,58 +276,6 @@ components:
           type: string
           format: date-time
           description: When the tag was last updated (moved to different commit or description changed)
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    CreateTagResponse:
-      type: object
-      description: Response body for POST /api/v1/commit_tags
-      required:
-      - tag_id
-      - tag_name
-      - commit_id
-      properties:
-        commit_id:
-          type: string
-          format: uuid
-          description: The commit ID this tag points to
-        tag_id:
-          type: string
-          format: uuid
-          description: The ID of the newly created tag
-        tag_name:
-          type: string
-          description: The name of the tag
-    UpdateTagRequest:
-      type: object
-      description: 'Request body for PATCH /api/v1/commit_tags/{tag_name}
-
-
-        For `description`:
-
-        - Field absent from JSON → don''t change the description
-
-        - Field present as `null` → clear the description
-
-        - Field present as `"text"` → set the description to "text"'
-      properties:
-        commit_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Optional new commit ID to move the tag to
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional new description for the tag. Send `null` to clear an existing description.
     CreateTagRequest:
       type: object
       description: Request body for POST /api/v1/commit_tags
@@ -334,6 +295,45 @@ components:
         tag_name:
           type: string
           description: The name of the tag (alphanumeric, hyphens, underscores, dots, 1-64 chars)
+    CreateTagResponse:
+      type: object
+      description: Response body for POST /api/v1/commit_tags
+      required:
+      - tag_id
+      - tag_name
+      - commit_id
+      properties:
+        commit_id:
+          type: string
+          format: uuid
+          description: The commit ID this tag points to
+        tag_id:
+          type: string
+          format: uuid
+          description: The ID of the newly created tag
+        tag_name:
+          type: string
+          description: The name of the tag
+    ListTagsResponse:
+      type: object
+      description: Response body for GET /api/v1/commit_tags
+      required:
+      - tags
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagInfo'
+          description: List of all tags in the user's organization
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
   securitySchemes:
     bearer_auth:
       type: http

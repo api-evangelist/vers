@@ -153,30 +153,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
+    ListPublicRepositoriesResponse:
       type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    ListRepoTagsResponse:
-      type: object
-      description: Response body for GET /api/v1/repositories/{repo_name}/tags
+      description: Response body for GET /api/v1/public/repositories
       required:
-      - repository
-      - tags
+      - repositories
       properties:
-        repository:
-          type: string
-          description: The repository name
-        tags:
+        repositories:
           type: array
           items:
-            $ref: '#/components/schemas/RepoTagInfo'
-          description: List of tags in this repository
+            $ref: '#/components/schemas/PublicRepositoryInfo'
     RepoTagInfo:
       type: object
       description: Tag information within a repository context
@@ -247,16 +233,30 @@ components:
           type: string
           format: uuid
           description: The repository's unique identifier
-    ListPublicRepositoriesResponse:
+    ErrorResponse:
       type: object
-      description: Response body for GET /api/v1/public/repositories
-      required:
-      - repositories
       properties:
-        repositories:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    ListRepoTagsResponse:
+      type: object
+      description: Response body for GET /api/v1/repositories/{repo_name}/tags
+      required:
+      - repository
+      - tags
+      properties:
+        repository:
+          type: string
+          description: The repository name
+        tags:
           type: array
           items:
-            $ref: '#/components/schemas/PublicRepositoryInfo'
+            $ref: '#/components/schemas/RepoTagInfo'
+          description: List of tags in this repository
   securitySchemes:
     bearer_auth:
       type: http

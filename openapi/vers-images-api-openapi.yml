@@ -239,23 +239,35 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    BaseImageStatusResponse:
+    BaseImageInfo:
       type: object
       required:
+      - base_image_id
       - image_name
-      - status
+      - owner_id
+      - is_public
+      - source_type
       - size_mib
+      - created_at
       properties:
-        error_message:
+        base_image_id:
+          type: string
+        created_at:
+          type: string
+        description:
           type:
           - string
           - 'null'
         image_name:
           type: string
+        is_public:
+          type: boolean
+        owner_id:
+          type: string
         size_mib:
           type: integer
           format: int32
-        status:
+        source_type:
           type: string
     CreateBaseImageRequest:
       type: object
@@ -279,6 +291,37 @@ components:
             Set to 0 for minimum possible image size, or higher for more free space.'
         source:
           $ref: '#/components/schemas/ImageSourceRequest'
+    CreateBaseImageResponse:
+      type: object
+      required:
+      - job_id
+      - image_name
+      - status
+      properties:
+        image_name:
+          type: string
+        job_id:
+          type: string
+        status:
+          type: string
+    BaseImageStatusResponse:
+      type: object
+      required:
+      - image_name
+      - status
+      - size_mib
+      properties:
+        error_message:
+          type:
+          - string
+          - 'null'
+        image_name:
+          type: string
+        size_mib:
+          type: integer
+          format: int32
+        status:
+          type: string
     UploadBaseImageResponse:
       type: object
       required:
@@ -328,19 +371,6 @@ components:
         success:
           type: boolean
           description: 'Is always: false'
-    CreateBaseImageResponse:
-      type: object
-      required:
-      - job_id
-      - image_name
-      - status
-      properties:
-        image_name:
-          type: string
-        job_id:
-          type: string
-        status:
-          type: string
     DeleteBaseImageResponse:
       type: object
       required:
@@ -372,36 +402,6 @@ components:
         total:
           type: integer
           format: int64
-    BaseImageInfo:
-      type: object
-      required:
-      - base_image_id
-      - image_name
-      - owner_id
-      - is_public
-      - source_type
-      - size_mib
-      - created_at
-      properties:
-        base_image_id:
-          type: string
-        created_at:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        image_name:
-          type: string
-        is_public:
-          type: boolean
-        owner_id:
-          type: string
-        size_mib:
-          type: integer
-          format: int32
-        source_type:
-          type: string
   securitySchemes:
     bearer_auth:
       type: http

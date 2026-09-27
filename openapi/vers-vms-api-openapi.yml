@@ -44,7 +44,7 @@ paths:
     get:
       tags:
       - VMs
-      operationId: list_vms
+      operationId: getApiV1Vms
       responses:
         '200':
           description: List all VMs accessible to the API key
@@ -72,6 +72,8 @@ paths:
       - bearer_auth: []
       summary: List vms
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: list_vms
 components:
   schemas:
     VmState:
@@ -83,15 +85,6 @@ components:
       - paused
       - sleeping
       - dead
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
     VM:
       type: object
       required:
@@ -119,6 +112,15 @@ components:
         vm_id:
           type: string
           format: uuid
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
   securitySchemes:
     bearer_auth:
       type: http

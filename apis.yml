@@ -60,7 +60,7 @@ tags:
 - CI/CD
 apis:
 - aid: vers:vers-commit-tags-api
-  name: Vers commit_tags API
+  name: Vers Commit Tags API
   description: The commit_tags API from Vers — 2 operation(s) for commit_tags.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -71,7 +71,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-commit-tags-api-openapi.yml
 - aid: vers:vers-commits-api
-  name: Vers commits API
+  name: Vers Commits API
   description: The commits API from Vers — 4 operation(s) for commits.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -83,7 +83,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-commits-api-openapi.yml
 - aid: vers:vers-deploy-api
-  name: Vers deploy API
+  name: Vers Deploy API
   description: The deploy API from Vers — 1 operation(s) for deploy.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -95,7 +95,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-deploy-api-openapi.yml
 - aid: vers:vers-domains-api
-  name: Vers domains API
+  name: Vers Domains API
   description: The domains API from Vers — 2 operation(s) for domains.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -107,7 +107,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-domains-api-openapi.yml
 - aid: vers:vers-env-vars-api
-  name: Vers env_vars API
+  name: Vers Env Vars API
   description: The env_vars API from Vers — 2 operation(s) for env_vars.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -119,7 +119,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-env-vars-api-openapi.yml
 - aid: vers:vers-images-api
-  name: Vers images API
+  name: Vers Images API
   description: The images API from Vers — 5 operation(s) for images.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -131,7 +131,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-images-api-openapi.yml
 - aid: vers:vers-keys-api
-  name: Vers keys API
+  name: Vers Keys API
   description: The keys API from Vers — 1 operation(s) for keys.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -143,7 +143,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-keys-api-openapi.yml
 - aid: vers:vers-public-repositories-api
-  name: Vers public_repositories API
+  name: Vers Public Repositories API
   description: The public_repositories API from Vers — 4 operation(s) for public_repositories.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -154,7 +154,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-public-repositories-api-openapi.yml
 - aid: vers:vers-repositories-api
-  name: Vers repositories API
+  name: Vers Repositories API
   description: The repositories API from Vers — 6 operation(s) for repositories.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh
@@ -176,7 +176,7 @@ apis:
   - type: OpenAPI
     url: openapi/vers-system-api-openapi.yml
 - aid: vers:vers-vm-api
-  name: Vers vm API
+  name: Vers Vm API
   description: The vm API from Vers — 20 operation(s) for vm.
   humanURL: https://docs.vers.sh/api-reference/introduction
   baseURL: https://api.vers.sh

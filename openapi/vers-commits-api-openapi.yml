@@ -237,36 +237,46 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    ListCommitsResponse:
+    VmCommitEntity:
       type: object
       required:
-      - commits
-      - total
-      - limit
-      - offset
+      - id
+      - owner_id
+      - name
+      - created_at
+      - is_public
       properties:
-        commits:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommitInfo'
-        limit:
-          type: integer
-          format: int64
-        offset:
-          type: integer
-          format: int64
-        total:
-          type: integer
-          format: int64
+        created_at:
+          type: string
+          format: date-time
+        description:
+          type:
+          - string
+          - 'null'
+        grandparent_commit_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The commit that this commit's parent VM was started from, if any. Intended to optimize traversing the commit tree.
+        id:
+          type: string
+          format: uuid
+        is_public:
+          type: boolean
+          description: Whether this commit is publicly accessible (readable/restorable by anyone).
+        name:
+          type: string
+        owner_id:
+          type: string
+          format: uuid
+          description: api key id.
+        parent_vm_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The VM that this commit was created from, if any.
     UpdateCommitRequest:
       type: object
       description: Request body for PATCH /commits/{commit_id}
@@ -316,46 +326,36 @@ components:
           type:
           - string
           - 'null'
-    VmCommitEntity:
+    ListCommitsResponse:
       type: object
       required:
-      - id
-      - owner_id
-      - name
-      - created_at
-      - is_public
+      - commits
+      - total
+      - limit
+      - offset
       properties:
-        created_at:
+        commits:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommitInfo'
+        limit:
+          type: integer
+          format: int64
+        offset:
+          type: integer
+          format: int64
+        total:
+          type: integer
+          format: int64
+    ErrorResponse:
+      type: object
+      properties:
+        error:
           type: string
-          format: date-time
-        description:
-          type:
-          - string
-          - 'null'
-        grandparent_commit_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: The commit that this commit's parent VM was started from, if any. Intended to optimize traversing the commit tree.
-        id:
-          type: string
-          format: uuid
-        is_public:
+          description: Reason of error
+        success:
           type: boolean
-          description: Whether this commit is publicly accessible (readable/restorable by anyone).
-        name:
-          type: string
-        owner_id:
-          type: string
-          format: uuid
-          description: api key id.
-        parent_vm_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: The VM that this commit was created from, if any.
+          description: 'Is always: false'
   securitySchemes:
     bearer_auth:
       type: http

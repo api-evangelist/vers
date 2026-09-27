@@ -190,18 +190,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateDomainRequest:
-      type: object
-      description: Request body for POST /api/v1/domains
-      required:
-      - vm_id
-      - domain
-      properties:
-        domain:
-          type: string
-        vm_id:
-          type: string
-          format: uuid
     DomainResponse:
       type: object
       description: Response type for domain operations.
@@ -222,15 +210,6 @@ components:
         vm_id:
           type: string
           format: uuid
-    DeleteDomainResponse:
-      type: object
-      description: Response body for DELETE /api/v1/domains/{domain_id}
-      required:
-      - domain_id
-      properties:
-        domain_id:
-          type: string
-          format: uuid
     ErrorResponse:
       type: object
       properties:
@@ -240,6 +219,27 @@ components:
         success:
           type: boolean
           description: 'Is always: false'
+    DeleteDomainResponse:
+      type: object
+      description: Response body for DELETE /api/v1/domains/{domain_id}
+      required:
+      - domain_id
+      properties:
+        domain_id:
+          type: string
+          format: uuid
+    CreateDomainRequest:
+      type: object
+      description: Request body for POST /api/v1/domains
+      required:
+      - vm_id
+      - domain
+      properties:
+        domain:
+          type: string
+        vm_id:
+          type: string
+          format: uuid
   securitySchemes:
     bearer_auth:
       type: http

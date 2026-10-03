@@ -153,6 +153,38 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PublicRepositoryInfo:
+      type: object
+      description: Public repository information (includes owner org name for namespacing)
+      required:
+      - repo_id
+      - org_name
+      - name
+      - full_name
+      - created_at
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: When the repository was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description
+        full_name:
+          type: string
+          description: 'Full reference: org_name/repo_name'
+        name:
+          type: string
+          description: The repository name
+        org_name:
+          type: string
+          description: The owning organization's name (namespace)
+        repo_id:
+          type: string
+          format: uuid
+          description: The repository's unique identifier
     ListPublicRepositoriesResponse:
       type: object
       description: Response body for GET /api/v1/public/repositories
@@ -201,38 +233,6 @@ components:
           type: string
           format: date-time
           description: When the tag was last updated
-    PublicRepositoryInfo:
-      type: object
-      description: Public repository information (includes owner org name for namespacing)
-      required:
-      - repo_id
-      - org_name
-      - name
-      - full_name
-      - created_at
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          description: When the repository was created
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description
-        full_name:
-          type: string
-          description: 'Full reference: org_name/repo_name'
-        name:
-          type: string
-          description: The repository name
-        org_name:
-          type: string
-          description: The owning organization's name (namespace)
-        repo_id:
-          type: string
-          format: uuid
-          description: The repository's unique identifier
     ErrorResponse:
       type: object
       properties:

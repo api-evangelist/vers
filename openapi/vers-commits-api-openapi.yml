@@ -277,24 +277,27 @@ components:
           - 'null'
           format: uuid
           description: The VM that this commit was created from, if any.
-    UpdateCommitRequest:
+    ListCommitsResponse:
       type: object
-      description: Request body for PATCH /commits/{commit_id}
       required:
-      - is_public
+      - commits
+      - total
+      - limit
+      - offset
       properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description for the commit.
-        is_public:
-          type: boolean
-        name:
-          type:
-          - string
-          - 'null'
-          description: Optional human-readable name for the commit.
+        commits:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommitInfo'
+        limit:
+          type: integer
+          format: int64
+        offset:
+          type: integer
+          format: int64
+        total:
+          type: integer
+          format: int64
     CommitInfo:
       type: object
       required:
@@ -326,27 +329,24 @@ components:
           type:
           - string
           - 'null'
-    ListCommitsResponse:
+    UpdateCommitRequest:
       type: object
+      description: Request body for PATCH /commits/{commit_id}
       required:
-      - commits
-      - total
-      - limit
-      - offset
+      - is_public
       properties:
-        commits:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommitInfo'
-        limit:
-          type: integer
-          format: int64
-        offset:
-          type: integer
-          format: int64
-        total:
-          type: integer
-          format: int64
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description for the commit.
+        is_public:
+          type: boolean
+        name:
+          type:
+          - string
+          - 'null'
+          description: Optional human-readable name for the commit.
     ErrorResponse:
       type: object
       properties:

@@ -76,15 +76,15 @@ paths:
       x-operation-id-original: list_vms
 components:
   schemas:
-    VmState:
-      type: string
-      description: The state of a VM
-      enum:
-      - booting
-      - running
-      - paused
-      - sleeping
-      - dead
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
     VM:
       type: object
       required:
@@ -112,15 +112,15 @@ components:
         vm_id:
           type: string
           format: uuid
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
+    VmState:
+      type: string
+      description: The state of a VM
+      enum:
+      - booting
+      - running
+      - paused
+      - sleeping
+      - dead
   securitySchemes:
     bearer_auth:
       type: http

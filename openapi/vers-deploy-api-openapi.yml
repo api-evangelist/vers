@@ -69,6 +69,35 @@ paths:
       - bearer_auth: []
 components:
   schemas:
+    DeploySettings:
+      type: object
+      description: Settings for the deploy build pipeline.
+      properties:
+        build_command:
+          type:
+          - string
+          - 'null'
+        install_command:
+          type:
+          - string
+          - 'null'
+        run_command:
+          type:
+          - string
+          - 'null'
+        working_directory:
+          type:
+          - string
+          - 'null'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
     DeployRequest:
       type: object
       description: Request body for `POST /api/v1/deploy`.
@@ -93,15 +122,6 @@ components:
           - type: 'null'
           - $ref: '#/components/schemas/DeploySettings'
             description: Build/run settings.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
     DeployResponse:
       type: object
       description: Response body for `POST /api/v1/deploy`.
@@ -118,26 +138,6 @@ components:
         vm_id:
           type: string
           format: uuid
-    DeploySettings:
-      type: object
-      description: Settings for the deploy build pipeline.
-      properties:
-        build_command:
-          type:
-          - string
-          - 'null'
-        install_command:
-          type:
-          - string
-          - 'null'
-        run_command:
-          type:
-          - string
-          - 'null'
-        working_directory:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     bearer_auth:
       type: http

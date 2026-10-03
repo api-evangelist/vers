@@ -477,20 +477,48 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateRepositoryRequest:
+    ForkRepositoryRequest:
       type: object
-      description: Request body for POST /api/v1/repositories
+      description: Request body for POST /api/v1/repositories/fork
       required:
-      - name
+      - source_org
+      - source_repo
+      - source_tag
       properties:
+        repo_name:
+          type:
+          - string
+          - 'null'
+          description: Name for the new repository in your org (defaults to source_repo if omitted)
+        source_org:
+          type: string
+          description: The organization that owns the source public repository
+        source_repo:
+          type: string
+          description: The source repository name
+        source_tag:
+          type: string
+          description: The tag to fork (e.g. "latest", "v1.0")
+        tag_name:
+          type:
+          - string
+          - 'null'
+          description: Tag name in the new repo (defaults to source_tag if omitted)
+    UpdateRepoTagRequest:
+      type: object
+      description: Request body for PATCH /api/v1/repositories/{repo_name}/tags/{tag_name}
+      properties:
+        commit_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Optional new commit ID to move the tag to
         description:
           type:
           - string
           - 'null'
-          description: Optional description of the repository
-        name:
-          type: string
-          description: The name of the repository (alphanumeric, hyphens, underscores, dots, 1-64 chars)
+          description: Optional new description for the tag. Send `null` to clear.
     CreateRepoTagResponse:
       type: object
       description: Response body for POST /api/v1/repositories/{repo_name}/tags
@@ -510,6 +538,82 @@ components:
           type: string
           format: uuid
           description: The ID of the newly created tag
+    CreateRepositoryRequest:
+      type: object
+      description: Request body for POST /api/v1/repositories
+      required:
+      - name
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description of the repository
+        name:
+          type: string
+          description: The name of the repository (alphanumeric, hyphens, underscores, dots, 1-64 chars)
+    ListRepositoriesResponse:
+      type: object
+      description: Response body for GET /api/v1/repositories
+      required:
+      - repositories
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepositoryInfo'
+          description: List of all repositories in the user's organization
+    SetRepositoryVisibilityRequest:
+      type: object
+      description: Request body for PATCH /api/v1/repositories/{repo_name}/visibility
+      required:
+      - is_public
+      properties:
+        is_public:
+          type: boolean
+          description: Whether the repository should be publicly visible
+    CreateRepositoryResponse:
+      type: object
+      description: Response body for POST /api/v1/repositories
+      required:
+      - repo_id
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the repository
+        repo_id:
+          type: string
+          format: uuid
+          description: The ID of the newly created repository
+    RepositoryInfo:
+      type: object
+      description: Repository information returned in list and get operations
+      required:
+      - repo_id
+      - name
+      - is_public
+      - created_at
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: When the repository was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description
+        is_public:
+          type: boolean
+          description: Whether this repository is publicly visible
+        name:
+          type: string
+          description: The repository name
+        repo_id:
+          type: string
+          format: uuid
+          description: The repository's unique identifier
     RepoTagInfo:
       type: object
       description: Tag information within a repository context
@@ -548,30 +652,15 @@ components:
           type: string
           format: date-time
           description: When the tag was last updated
-    UpdateRepoTagRequest:
+    ErrorResponse:
       type: object
-      description: Request body for PATCH /api/v1/repositories/{repo_name}/tags/{tag_name}
       properties:
-        commit_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Optional new commit ID to move the tag to
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional new description for the tag. Send `null` to clear.
-    SetRepositoryVisibilityRequest:
-      type: object
-      description: Request body for PATCH /api/v1/repositories/{repo_name}/visibility
-      required:
-      - is_public
-      properties:
-        is_public:
+        error:
+          type: string
+          description: Reason of error
+        success:
           type: boolean
-          description: Whether the repository should be publicly visible
+          description: 'Is always: false'
     ForkRepositoryResponse:
       type: object
       description: Response body for POST /api/v1/repositories/fork
@@ -598,20 +687,21 @@ components:
         vm_id:
           type: string
           description: The new VM that was created from the fork
-    CreateRepositoryResponse:
+    ListRepoTagsResponse:
       type: object
-      description: Response body for POST /api/v1/repositories
+      description: Response body for GET /api/v1/repositories/{repo_name}/tags
       required:
-      - repo_id
-      - name
+      - repository
+      - tags
       properties:
-        name:
+        repository:
           type: string
-          description: The name of the repository
-        repo_id:
-          type: string
-          format: uuid
-          description: The ID of the newly created repository
+          description: The repository name
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepoTagInfo'
+          description: List of tags in this repository
     CreateRepoTagRequest:
       type: object
       description: 'Request body for creating a tag within a repository: POST /api/v1/repositories/{repo_name}/tags'
@@ -631,96 +721,6 @@ components:
         tag_name:
           type: string
           description: The tag name (e.g. "latest", "v1.0")
-    RepositoryInfo:
-      type: object
-      description: Repository information returned in list and get operations
-      required:
-      - repo_id
-      - name
-      - is_public
-      - created_at
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          description: When the repository was created
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description
-        is_public:
-          type: boolean
-          description: Whether this repository is publicly visible
-        name:
-          type: string
-          description: The repository name
-        repo_id:
-          type: string
-          format: uuid
-          description: The repository's unique identifier
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    ForkRepositoryRequest:
-      type: object
-      description: Request body for POST /api/v1/repositories/fork
-      required:
-      - source_org
-      - source_repo
-      - source_tag
-      properties:
-        repo_name:
-          type:
-          - string
-          - 'null'
-          description: Name for the new repository in your org (defaults to source_repo if omitted)
-        source_org:
-          type: string
-          description: The organization that owns the source public repository
-        source_repo:
-          type: string
-          description: The source repository name
-        source_tag:
-          type: string
-          description: The tag to fork (e.g. "latest", "v1.0")
-        tag_name:
-          type:
-          - string
-          - 'null'
-          description: Tag name in the new repo (defaults to source_tag if omitted)
-    ListRepoTagsResponse:
-      type: object
-      description: Response body for GET /api/v1/repositories/{repo_name}/tags
-      required:
-      - repository
-      - tags
-      properties:
-        repository:
-          type: string
-          description: The repository name
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/RepoTagInfo'
-          description: List of tags in this repository
-    ListRepositoriesResponse:
-      type: object
-      description: Response body for GET /api/v1/repositories
-      required:
-      - repositories
-      properties:
-        repositories:
-          type: array
-          items:
-            $ref: '#/components/schemas/RepositoryInfo'
-          description: List of all repositories in the user's organization
   securitySchemes:
     bearer_auth:
       type: http

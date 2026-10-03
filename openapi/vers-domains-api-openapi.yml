@@ -190,35 +190,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DomainResponse:
-      type: object
-      description: Response type for domain operations.
-      required:
-      - domain_id
-      - vm_id
-      - domain
-      - created_at
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        domain:
-          type: string
-        domain_id:
-          type: string
-          format: uuid
-        vm_id:
-          type: string
-          format: uuid
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
     DeleteDomainResponse:
       type: object
       description: Response body for DELETE /api/v1/domains/{domain_id}
@@ -237,6 +208,35 @@ components:
       properties:
         domain:
           type: string
+        vm_id:
+          type: string
+          format: uuid
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    DomainResponse:
+      type: object
+      description: Response type for domain operations.
+      required:
+      - domain_id
+      - vm_id
+      - domain
+      - created_at
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        domain:
+          type: string
+        domain_id:
+          type: string
+          format: uuid
         vm_id:
           type: string
           format: uuid

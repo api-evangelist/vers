@@ -102,28 +102,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    EnvVarsResponse:
-      type: object
-      description: Response body for GET /env_vars and PUT /env_vars.
-      required:
-      - vars
-      properties:
-        vars:
-          type: object
-          description: All environment variables currently set for the authenticated user.
-          additionalProperties:
-            type: string
-          propertyNames:
-            type: string
     SetEnvVarsRequest:
       type: object
       description: 'Request body for PUT /env_vars — sets (upserts) one or more environment variables.
@@ -171,6 +149,28 @@ components:
             When `replace` is true: all existing variables are deleted first, then
 
             only the provided vars are stored (replace-all semantics).'
+          additionalProperties:
+            type: string
+          propertyNames:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    EnvVarsResponse:
+      type: object
+      description: Response body for GET /env_vars and PUT /env_vars.
+      required:
+      - vars
+      properties:
+        vars:
+          type: object
+          description: All environment variables currently set for the authenticated user.
           additionalProperties:
             type: string
           propertyNames:

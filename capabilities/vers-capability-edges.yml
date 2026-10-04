@@ -1,0 +1,36 @@
+slug: vers
+provider: Vers
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: vm
+  spec_file: vers-vm-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: POST /api/v1/vm/new_root  create_new_root_vm  Create new root vm; POST /api/v1/vm/{vm_id}/commit  commit_vm;
+    PATCH /api/v1/vm/{vm_id}/disk  resize_vm_disk
+  reason: Core surface creates, branches, commits, resizes, executes in and deletes virtual machines —
+    direct provisioning and operation of compute infrastructure, which is IT Infrastructure Management
+    for whoever buys it.
+- tag: Deploy
+  spec_file: vers-deploy-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.7
+  evidence: POST /api/v1/deploy deploy_handler Deploy a GitHub repository to a new Vers project
+  reason: The single operation deploys a source repository into a running environment, which is deployment
+    orchestration of software changes. Only one operation, so some uncertainty between deployment orchestration
+    and environment provisioning.

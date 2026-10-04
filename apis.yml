@@ -203,6 +203,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/vers-capability-edges.yml
+  name: Vers Business Capability Map
 - type: Overlay
   url: overlays/vers-orchestrator-overlay.yaml
 - type: Website

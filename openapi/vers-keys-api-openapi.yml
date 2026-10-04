@@ -38,6 +38,15 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
     ValidateKeyResponse:
       type: object
       description: Response body for POST /api/keys/validate
@@ -49,15 +58,6 @@ components:
           type: string
         valid:
           type: boolean
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
   securitySchemes:
     bearer_auth:
       type: http

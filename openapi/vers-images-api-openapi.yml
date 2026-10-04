@@ -239,7 +239,97 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    DeleteBaseImageResponse:
+      type: object
+      required:
+      - deleted
+      - base_image_id
+      properties:
+        base_image_id:
+          type: string
+        deleted:
+          type: boolean
+    BaseImageStatusResponse:
+      type: object
+      required:
+      - image_name
+      - status
+      - size_mib
+      properties:
+        error_message:
+          type:
+          - string
+          - 'null'
+        image_name:
+          type: string
+        size_mib:
+          type: integer
+          format: int32
+        status:
+          type: string
+    ImageSourceRequest:
+      oneOf:
+      - type: object
+        required:
+        - image_ref
+        - type
+        properties:
+          image_ref:
+            type: string
+          type:
+            type: string
+            enum:
+            - docker
+      - type: object
+        required:
+        - bucket
+        - key
+        - type
+        properties:
+          bucket:
+            type: string
+          key:
+            type: string
+          type:
+            type: string
+            enum:
+            - s3
+    CreateBaseImageRequest:
+      type: object
+      required:
+      - image_name
+      - source
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        image_name:
+          type: string
+        size_mib:
+          type: integer
+          format: int32
+          description: 'Additional capacity in MiB beyond the actual filesystem size (defaults to 256).
+
+            The final image size = calculated rootfs size + this value.
+
+            Set to 0 for minimum possible image size, or higher for more free space.'
+        source:
+          $ref: '#/components/schemas/ImageSourceRequest'
     UploadBaseImageResponse:
+      type: object
+      required:
+      - job_id
+      - image_name
+      - status
+      properties:
+        image_name:
+          type: string
+        job_id:
+          type: string
+        status:
+          type: string
+    CreateBaseImageResponse:
       type: object
       required:
       - job_id
@@ -273,16 +363,15 @@ components:
         total:
           type: integer
           format: int64
-    DeleteBaseImageResponse:
+    ErrorResponse:
       type: object
-      required:
-      - deleted
-      - base_image_id
       properties:
-        base_image_id:
+        error:
           type: string
-        deleted:
+          description: Reason of error
+        success:
           type: boolean
+          description: 'Is always: false'
     BaseImageInfo:
       type: object
       required:
@@ -313,95 +402,6 @@ components:
           format: int32
         source_type:
           type: string
-    CreateBaseImageRequest:
-      type: object
-      required:
-      - image_name
-      - source
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        image_name:
-          type: string
-        size_mib:
-          type: integer
-          format: int32
-          description: 'Additional capacity in MiB beyond the actual filesystem size (defaults to 256).
-
-            The final image size = calculated rootfs size + this value.
-
-            Set to 0 for minimum possible image size, or higher for more free space.'
-        source:
-          $ref: '#/components/schemas/ImageSourceRequest'
-    ImageSourceRequest:
-      oneOf:
-      - type: object
-        required:
-        - image_ref
-        - type
-        properties:
-          image_ref:
-            type: string
-          type:
-            type: string
-            enum:
-            - docker
-      - type: object
-        required:
-        - bucket
-        - key
-        - type
-        properties:
-          bucket:
-            type: string
-          key:
-            type: string
-          type:
-            type: string
-            enum:
-            - s3
-    BaseImageStatusResponse:
-      type: object
-      required:
-      - image_name
-      - status
-      - size_mib
-      properties:
-        error_message:
-          type:
-          - string
-          - 'null'
-        image_name:
-          type: string
-        size_mib:
-          type: integer
-          format: int32
-        status:
-          type: string
-    CreateBaseImageResponse:
-      type: object
-      required:
-      - job_id
-      - image_name
-      - status
-      properties:
-        image_name:
-          type: string
-        job_id:
-          type: string
-        status:
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
   securitySchemes:
     bearer_auth:
       type: http

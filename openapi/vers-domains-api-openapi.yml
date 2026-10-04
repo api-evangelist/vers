@@ -190,6 +190,15 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
     DeleteDomainResponse:
       type: object
       description: Response body for DELETE /api/v1/domains/{domain_id}
@@ -211,15 +220,6 @@ components:
         vm_id:
           type: string
           format: uuid
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
     DomainResponse:
       type: object
       description: Response type for domain operations.

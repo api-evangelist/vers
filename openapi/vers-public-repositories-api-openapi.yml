@@ -153,48 +153,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PublicRepositoryInfo:
-      type: object
-      description: Public repository information (includes owner org name for namespacing)
-      required:
-      - repo_id
-      - org_name
-      - name
-      - full_name
-      - created_at
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          description: When the repository was created
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description
-        full_name:
-          type: string
-          description: 'Full reference: org_name/repo_name'
-        name:
-          type: string
-          description: The repository name
-        org_name:
-          type: string
-          description: The owning organization's name (namespace)
-        repo_id:
-          type: string
-          format: uuid
-          description: The repository's unique identifier
-    ListPublicRepositoriesResponse:
-      type: object
-      description: Response body for GET /api/v1/public/repositories
-      required:
-      - repositories
-      properties:
-        repositories:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicRepositoryInfo'
     RepoTagInfo:
       type: object
       description: Tag information within a repository context
@@ -233,15 +191,38 @@ components:
           type: string
           format: date-time
           description: When the tag was last updated
-    ErrorResponse:
+    PublicRepositoryInfo:
       type: object
+      description: Public repository information (includes owner org name for namespacing)
+      required:
+      - repo_id
+      - org_name
+      - name
+      - full_name
+      - created_at
       properties:
-        error:
+        created_at:
           type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
+          format: date-time
+          description: When the repository was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description
+        full_name:
+          type: string
+          description: 'Full reference: org_name/repo_name'
+        name:
+          type: string
+          description: The repository name
+        org_name:
+          type: string
+          description: The owning organization's name (namespace)
+        repo_id:
+          type: string
+          format: uuid
+          description: The repository's unique identifier
     ListRepoTagsResponse:
       type: object
       description: Response body for GET /api/v1/repositories/{repo_name}/tags
@@ -257,6 +238,25 @@ components:
           items:
             $ref: '#/components/schemas/RepoTagInfo'
           description: List of tags in this repository
+    ListPublicRepositoriesResponse:
+      type: object
+      description: Response body for GET /api/v1/public/repositories
+      required:
+      - repositories
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicRepositoryInfo'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
   securitySchemes:
     bearer_auth:
       type: http

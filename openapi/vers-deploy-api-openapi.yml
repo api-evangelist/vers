@@ -69,26 +69,6 @@ paths:
       - bearer_auth: []
 components:
   schemas:
-    DeploySettings:
-      type: object
-      description: Settings for the deploy build pipeline.
-      properties:
-        build_command:
-          type:
-          - string
-          - 'null'
-        install_command:
-          type:
-          - string
-          - 'null'
-        run_command:
-          type:
-          - string
-          - 'null'
-        working_directory:
-          type:
-          - string
-          - 'null'
     ErrorResponse:
       type: object
       properties:
@@ -98,6 +78,22 @@ components:
         success:
           type: boolean
           description: 'Is always: false'
+    DeployResponse:
+      type: object
+      description: Response body for `POST /api/v1/deploy`.
+      required:
+      - project_id
+      - vm_id
+      - status
+      properties:
+        project_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+        vm_id:
+          type: string
+          format: uuid
     DeployRequest:
       type: object
       description: Request body for `POST /api/v1/deploy`.
@@ -122,22 +118,26 @@ components:
           - type: 'null'
           - $ref: '#/components/schemas/DeploySettings'
             description: Build/run settings.
-    DeployResponse:
+    DeploySettings:
       type: object
-      description: Response body for `POST /api/v1/deploy`.
-      required:
-      - project_id
-      - vm_id
-      - status
+      description: Settings for the deploy build pipeline.
       properties:
-        project_id:
-          type: string
-          format: uuid
-        status:
-          type: string
-        vm_id:
-          type: string
-          format: uuid
+        build_command:
+          type:
+          - string
+          - 'null'
+        install_command:
+          type:
+          - string
+          - 'null'
+        run_command:
+          type:
+          - string
+          - 'null'
+        working_directory:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearer_auth:
       type: http

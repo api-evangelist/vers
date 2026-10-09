@@ -6,7 +6,7 @@ description: >-
 api: openapi/vers-openapi-original.json
 base_url: https://api.vers.sh
 auth: bearer API key (Authorization: Bearer $VERS_API_KEY)
-operations: [deploy_handler, list_vms, get_vm_metadata, vm_status, create_domain]
+operations: [deploy_handler, getApiV1Vms, get_vm_metadata, vm_status, create_domain]
 ---
 
 # Deploy a GitHub repo to a fresh VM

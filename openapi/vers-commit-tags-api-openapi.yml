@@ -252,25 +252,45 @@ components:
           type: string
           format: date-time
           description: When the tag was last updated (moved to different commit or description changed)
-    CreateTagRequest:
+    ListTagsResponse:
       type: object
-      description: Request body for POST /api/v1/commit_tags
+      description: Response body for GET /api/v1/commit_tags
       required:
+      - tags
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagInfo'
+          description: List of all tags in the user's organization
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    CreateTagResponse:
+      type: object
+      description: Response body for POST /api/v1/commit_tags
+      required:
+      - tag_id
       - tag_name
       - commit_id
       properties:
         commit_id:
           type: string
           format: uuid
-          description: The commit ID this tag should point to
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description of what this tag represents
+          description: The commit ID this tag points to
+        tag_id:
+          type: string
+          format: uuid
+          description: The ID of the newly created tag
         tag_name:
           type: string
-          description: The name of the tag (alphanumeric, hyphens, underscores, dots, 1-64 chars)
+          description: The name of the tag
     UpdateTagRequest:
       type: object
       description: 'Request body for PATCH /api/v1/commit_tags/{tag_name}
@@ -295,45 +315,25 @@ components:
           - string
           - 'null'
           description: Optional new description for the tag. Send `null` to clear an existing description.
-    ErrorResponse:
+    CreateTagRequest:
       type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    ListTagsResponse:
-      type: object
-      description: Response body for GET /api/v1/commit_tags
+      description: Request body for POST /api/v1/commit_tags
       required:
-      - tags
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagInfo'
-          description: List of all tags in the user's organization
-    CreateTagResponse:
-      type: object
-      description: Response body for POST /api/v1/commit_tags
-      required:
-      - tag_id
       - tag_name
       - commit_id
       properties:
         commit_id:
           type: string
           format: uuid
-          description: The commit ID this tag points to
-        tag_id:
-          type: string
-          format: uuid
-          description: The ID of the newly created tag
+          description: The commit ID this tag should point to
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description of what this tag represents
         tag_name:
           type: string
-          description: The name of the tag
+          description: The name of the tag (alphanumeric, hyphens, underscores, dots, 1-64 chars)
   securitySchemes:
     bearer_auth:
       type: http

@@ -1134,23 +1134,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    VmResizeDiskRequest:
-      type: object
-      description: Request body for PATCH /api/vm/{vm_id}/disk
-      required:
-      - fs_size_mib
-      properties:
-        fs_size_mib:
-          type: integer
-          format: int32
-          description: The new disk size in MiB. Must be strictly greater than the current size.
-          minimum: 0
-    VmExecLogStream:
-      type: string
-      description: Streams available for exec logging.
-      enum:
-      - stdout
-      - stderr
     VmCommitRequest:
       type: object
       description: The request body for POST /api/vm/{vm_id}/commit
@@ -1171,74 +1154,6 @@ components:
           - string
           - 'null'
           description: Optional human-readable name for the commit. Defaults to auto-generated name if not provided.
-    VmMetadataResponse:
-      type: object
-      description: Response for GET /api/v1/vm/{vm_id}/metadata
-      required:
-      - vm_id
-      - owner_id
-      - created_at
-      - state
-      - ip
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        deleted_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        grandparent_vm_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        ip:
-          type: string
-        owner_id:
-          type: string
-          format: uuid
-        parent_commit_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        state:
-          $ref: '#/components/schemas/VmState'
-        vm_id:
-          type: string
-          format: uuid
-    VmUpdateStateRequest:
-      type: object
-      description: Request body for PATCH /api/vm/{vm_id}/state
-      required:
-      - state
-      properties:
-        state:
-          $ref: '#/components/schemas/VmUpdateStateEnum'
-          description: The requested state for the VM
-    VmExecLogResponse:
-      type: object
-      description: Response for exec log tail requests.
-      required:
-      - entries
-      - next_offset
-      - eof
-      properties:
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/VmExecLogEntry'
-          description: Returned log entries.
-        eof:
-          type: boolean
-          description: True when the end of file was reached.
-        next_offset:
-          type: integer
-          format: int64
-          description: Next byte offset to continue from.
-          minimum: 0
     NewRootRequest:
       type: object
       required:
@@ -1246,34 +1161,6 @@ components:
       properties:
         vm_config:
           $ref: '#/components/schemas/VmCreateVmConfig'
-    FromCommitVmRequest:
-      oneOf:
-      - type: object
-        description: The commit ID to restore from
-        required:
-        - commit_id
-        properties:
-          commit_id:
-            type: string
-            format: uuid
-            description: The commit ID to restore from
-      - type: object
-        description: The tag name to restore from (legacy org-scoped tag)
-        required:
-        - tag_name
-        properties:
-          tag_name:
-            type: string
-            description: The tag name to restore from (legacy org-scoped tag)
-      - type: object
-        description: A repository reference in "repo_name:tag_name" format
-        required:
-        - ref
-        properties:
-          ref:
-            type: string
-            description: A repository reference in "repo_name:tag_name" format
-      description: Request body for POST /api/v1/vm/from_commit
     VmCreateVmConfig:
       type: object
       description: Struct representing configuration options common to all VMs
@@ -1317,34 +1204,48 @@ components:
           format: int32
           description: How many vCPUs to allocate to this VM (and its children)
           minimum: 0
-    LabelVmRequest:
+    VmUpdateStateRequest:
       type: object
-      properties:
-        labels:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-          propertyNames:
-            type: string
-    VmState:
-      type: string
-      description: The state of a VM
-      enum:
-      - booting
-      - running
-      - paused
-      - sleeping
-      - dead
-    NewVmResponse:
-      type: object
-      description: Response body for new VM requests (new_root, from_commit, branch)
+      description: Request body for PATCH /api/vm/{vm_id}/state
       required:
-      - vm_id
+      - state
       properties:
-        vm_id:
+        state:
+          $ref: '#/components/schemas/VmUpdateStateEnum'
+          description: The requested state for the VM
+    ErrorResponse:
+      type: object
+      properties:
+        error:
           type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    VmReadFileResponse:
+      type: object
+      description: Response body for GET /api/vm/{vm_id}/files
+      required:
+      - content_b64
+      properties:
+        content_b64:
+          type: string
+          description: File contents, base64-encoded.
+    VmSshKeyResponse:
+      type: object
+      description: Response body for GET /api/vm/{vm_id}/ssh_key
+      required:
+      - ssh_private_key
+      - ssh_port
+      properties:
+        ssh_port:
+          type: integer
+          format: int32
+          description: The SSH port that will be DNAT'd to the VM's netns (and, in turn, to its TAP device)
+          minimum: 0
+        ssh_private_key:
+          type: string
+          description: Private SSH key in stringified OpenSSH format
     VmWriteFileRequest:
       type: object
       description: Request body for PUT /api/vm/{vm_id}/files
@@ -1374,82 +1275,6 @@ components:
       properties:
         vm_id:
           type: string
-    VmSshKeyResponse:
-      type: object
-      description: Response body for GET /api/vm/{vm_id}/ssh_key
-      required:
-      - ssh_private_key
-      - ssh_port
-      properties:
-        ssh_port:
-          type: integer
-          format: int32
-          description: The SSH port that will be DNAT'd to the VM's netns (and, in turn, to its TAP device)
-          minimum: 0
-        ssh_private_key:
-          type: string
-          description: Private SSH key in stringified OpenSSH format
-    VM:
-      type: object
-      required:
-      - vm_id
-      - owner_id
-      - created_at
-      - state
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        labels:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-          propertyNames:
-            type: string
-        owner_id:
-          type: string
-          format: uuid
-        state:
-          $ref: '#/components/schemas/VmState'
-        vm_id:
-          type: string
-          format: uuid
-    VmCommitResponse:
-      type: object
-      description: The response body for POST /api/vm/{vm_id}/commit
-      required:
-      - commit_id
-      properties:
-        commit_id:
-          type: string
-          format: uuid
-          description: The UUID of the newly-created commit
-    VmExecResponse:
-      type: object
-      description: Response body for POST /api/vm/{vm_id}/exec
-      required:
-      - exit_code
-      - stdout
-      - stderr
-      properties:
-        exec_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Exec identifier associated with this run.
-        exit_code:
-          type: integer
-          format: int32
-          description: Exit code returned by the command.
-        stderr:
-          type: string
-          description: UTF-8 decoded stderr (lossy).
-        stdout:
-          type: string
-          description: UTF-8 decoded stdout (lossy).
     VmExecRequest:
       type: object
       description: Request body for POST /api/vm/{vm_id}/exec
@@ -1493,50 +1318,54 @@ components:
           - string
           - 'null'
           description: Optional working directory for the command.
-    VmReadFileResponse:
-      type: object
-      description: Response body for GET /api/vm/{vm_id}/files
-      required:
-      - content_b64
-      properties:
-        content_b64:
-          type: string
-          description: File contents, base64-encoded.
-    VmExecLogEntry:
-      type: object
-      description: Individual log entry describing emitted stdout/stderr chunk.
-      required:
-      - timestamp
-      - stream
-      - data_b64
-      properties:
-        data_b64:
-          type: string
-          description: Base64-encoded bytes from stdout/stderr chunk.
-        exec_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        stream:
-          $ref: '#/components/schemas/VmExecLogStream'
-        timestamp:
-          type: string
-    VmUpdateStateEnum:
+    FromCommitVmRequest:
+      oneOf:
+      - type: object
+        description: The commit ID to restore from
+        required:
+        - commit_id
+        properties:
+          commit_id:
+            type: string
+            format: uuid
+            description: The commit ID to restore from
+      - type: object
+        description: The tag name to restore from (legacy org-scoped tag)
+        required:
+        - tag_name
+        properties:
+          tag_name:
+            type: string
+            description: The tag name to restore from (legacy org-scoped tag)
+      - type: object
+        description: A repository reference in "repo_name:tag_name" format
+        required:
+        - ref
+        properties:
+          ref:
+            type: string
+            description: A repository reference in "repo_name:tag_name" format
+      description: Request body for POST /api/v1/vm/from_commit
+    VmState:
       type: string
-      description: Possible options for the state requested in PATCH /api/vm/{vm_id}/state
+      description: The state of a VM
       enum:
-      - Paused
-      - Running
-    ErrorResponse:
+      - booting
+      - running
+      - paused
+      - sleeping
+      - dead
+    LabelVmRequest:
       type: object
       properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
+        labels:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          propertyNames:
+            type: string
     VmExecStreamAttachRequest:
       type: object
       description: Request body for POST /api/vm/{vm_id}/exec/stream/attach
@@ -1559,6 +1388,171 @@ components:
           - boolean
           - 'null'
           description: Start streaming after the latest retained chunk (ignores cursor).
+    VmUpdateStateEnum:
+      type: string
+      description: Possible options for the state requested in PATCH /api/vm/{vm_id}/state
+      enum:
+      - Paused
+      - Running
+    VmExecLogEntry:
+      type: object
+      description: Individual log entry describing emitted stdout/stderr chunk.
+      required:
+      - timestamp
+      - stream
+      - data_b64
+      properties:
+        data_b64:
+          type: string
+          description: Base64-encoded bytes from stdout/stderr chunk.
+        exec_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        stream:
+          $ref: '#/components/schemas/VmExecLogStream'
+        timestamp:
+          type: string
+    NewVmResponse:
+      type: object
+      description: Response body for new VM requests (new_root, from_commit, branch)
+      required:
+      - vm_id
+      properties:
+        vm_id:
+          type: string
+    VmCommitResponse:
+      type: object
+      description: The response body for POST /api/vm/{vm_id}/commit
+      required:
+      - commit_id
+      properties:
+        commit_id:
+          type: string
+          format: uuid
+          description: The UUID of the newly-created commit
+    VM:
+      type: object
+      required:
+      - vm_id
+      - owner_id
+      - created_at
+      - state
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        labels:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          propertyNames:
+            type: string
+        owner_id:
+          type: string
+          format: uuid
+        state:
+          $ref: '#/components/schemas/VmState'
+        vm_id:
+          type: string
+          format: uuid
+    VmMetadataResponse:
+      type: object
+      description: Response for GET /api/v1/vm/{vm_id}/metadata
+      required:
+      - vm_id
+      - owner_id
+      - created_at
+      - state
+      - ip
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        grandparent_vm_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        ip:
+          type: string
+        owner_id:
+          type: string
+          format: uuid
+        parent_commit_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        state:
+          $ref: '#/components/schemas/VmState'
+        vm_id:
+          type: string
+          format: uuid
+    VmExecLogResponse:
+      type: object
+      description: Response for exec log tail requests.
+      required:
+      - entries
+      - next_offset
+      - eof
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/VmExecLogEntry'
+          description: Returned log entries.
+        eof:
+          type: boolean
+          description: True when the end of file was reached.
+        next_offset:
+          type: integer
+          format: int64
+          description: Next byte offset to continue from.
+          minimum: 0
+    VmResizeDiskRequest:
+      type: object
+      description: Request body for PATCH /api/vm/{vm_id}/disk
+      required:
+      - fs_size_mib
+      properties:
+        fs_size_mib:
+          type: integer
+          format: int32
+          description: The new disk size in MiB. Must be strictly greater than the current size.
+          minimum: 0
+    VmExecResponse:
+      type: object
+      description: Response body for POST /api/vm/{vm_id}/exec
+      required:
+      - exit_code
+      - stdout
+      - stderr
+      properties:
+        exec_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Exec identifier associated with this run.
+        exit_code:
+          type: integer
+          format: int32
+          description: Exit code returned by the command.
+        stderr:
+          type: string
+          description: UTF-8 decoded stderr (lossy).
+        stdout:
+          type: string
+          description: UTF-8 decoded stdout (lossy).
     NewVmsResponse:
       type: object
       required:
@@ -1568,6 +1562,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NewVmResponse'
+    VmExecLogStream:
+      type: string
+      description: Streams available for exec logging.
+      enum:
+      - stdout
+      - stderr
   securitySchemes:
     bearer_auth:
       type: http

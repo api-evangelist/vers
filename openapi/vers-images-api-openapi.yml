@@ -249,6 +249,36 @@ components:
           type: string
         deleted:
           type: boolean
+    BaseImageInfo:
+      type: object
+      required:
+      - base_image_id
+      - image_name
+      - owner_id
+      - is_public
+      - source_type
+      - size_mib
+      - created_at
+      properties:
+        base_image_id:
+          type: string
+        created_at:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        image_name:
+          type: string
+        is_public:
+          type: boolean
+        owner_id:
+          type: string
+        size_mib:
+          type: integer
+          format: int32
+        source_type:
+          type: string
     BaseImageStatusResponse:
       type: object
       required:
@@ -294,42 +324,16 @@ components:
             type: string
             enum:
             - s3
-    CreateBaseImageRequest:
+    ErrorResponse:
       type: object
-      required:
-      - image_name
-      - source
       properties:
-        description:
-          type:
-          - string
-          - 'null'
-        image_name:
+        error:
           type: string
-        size_mib:
-          type: integer
-          format: int32
-          description: 'Additional capacity in MiB beyond the actual filesystem size (defaults to 256).
-
-            The final image size = calculated rootfs size + this value.
-
-            Set to 0 for minimum possible image size, or higher for more free space.'
-        source:
-          $ref: '#/components/schemas/ImageSourceRequest'
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
     UploadBaseImageResponse:
-      type: object
-      required:
-      - job_id
-      - image_name
-      - status
-      properties:
-        image_name:
-          type: string
-        job_id:
-          type: string
-        status:
-          type: string
-    CreateBaseImageResponse:
       type: object
       required:
       - job_id
@@ -363,44 +367,40 @@ components:
         total:
           type: integer
           format: int64
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
-    BaseImageInfo:
+    CreateBaseImageRequest:
       type: object
       required:
-      - base_image_id
       - image_name
-      - owner_id
-      - is_public
-      - source_type
-      - size_mib
-      - created_at
+      - source
       properties:
-        base_image_id:
-          type: string
-        created_at:
-          type: string
         description:
           type:
           - string
           - 'null'
         image_name:
           type: string
-        is_public:
-          type: boolean
-        owner_id:
-          type: string
         size_mib:
           type: integer
           format: int32
-        source_type:
+          description: 'Additional capacity in MiB beyond the actual filesystem size (defaults to 256).
+
+            The final image size = calculated rootfs size + this value.
+
+            Set to 0 for minimum possible image size, or higher for more free space.'
+        source:
+          $ref: '#/components/schemas/ImageSourceRequest'
+    CreateBaseImageResponse:
+      type: object
+      required:
+      - job_id
+      - image_name
+      - status
+      properties:
+        image_name:
+          type: string
+        job_id:
+          type: string
+        status:
           type: string
   securitySchemes:
     bearer_auth:

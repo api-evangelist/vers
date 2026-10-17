@@ -191,6 +191,25 @@ components:
           type: string
           format: date-time
           description: When the tag was last updated
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Reason of error
+        success:
+          type: boolean
+          description: 'Is always: false'
+    ListPublicRepositoriesResponse:
+      type: object
+      description: Response body for GET /api/v1/public/repositories
+      required:
+      - repositories
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicRepositoryInfo'
     PublicRepositoryInfo:
       type: object
       description: Public repository information (includes owner org name for namespacing)
@@ -238,25 +257,6 @@ components:
           items:
             $ref: '#/components/schemas/RepoTagInfo'
           description: List of tags in this repository
-    ListPublicRepositoriesResponse:
-      type: object
-      description: Response body for GET /api/v1/public/repositories
-      required:
-      - repositories
-      properties:
-        repositories:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicRepositoryInfo'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Reason of error
-        success:
-          type: boolean
-          description: 'Is always: false'
   securitySchemes:
     bearer_auth:
       type: http

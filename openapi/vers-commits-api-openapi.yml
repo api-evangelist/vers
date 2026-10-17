@@ -268,24 +268,6 @@ components:
           type:
           - string
           - 'null'
-    UpdateCommitRequest:
-      type: object
-      description: Request body for PATCH /commits/{commit_id}
-      required:
-      - is_public
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description for the commit.
-        is_public:
-          type: boolean
-        name:
-          type:
-          - string
-          - 'null'
-          description: Optional human-readable name for the commit.
     ListCommitsResponse:
       type: object
       required:
@@ -356,6 +338,24 @@ components:
           - 'null'
           format: uuid
           description: The VM that this commit was created from, if any.
+    UpdateCommitRequest:
+      type: object
+      description: Request body for PATCH /commits/{commit_id}
+      required:
+      - is_public
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description for the commit.
+        is_public:
+          type: boolean
+        name:
+          type:
+          - string
+          - 'null'
+          description: Optional human-readable name for the commit.
   securitySchemes:
     bearer_auth:
       type: http
